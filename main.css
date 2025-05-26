@@ -1,0 +1,29 @@
+body {
+    background-color: #121212;
+    color: #f0f0f0;
+  }
+  
+  header, nav, footer {
+    background-color: #1e1e1e;
+  }
+  
+  a {
+    color: #90caf9;
+  }
+  
+  a:hover {
+    color: #bb86fc;
+  }
+  
+  button {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+  }
+  
+  .section {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
