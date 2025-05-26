@@ -1,32 +1,42 @@
+/* Reset + Base Styles */
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: #000;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
 }
 
-.hero-section {
+.hero {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #000; /* Dark background */
-  background-image: radial-gradient(#222 1px, transparent 1px);
-  background-size: 20px 20px;
+  justify-content: center;
   text-align: center;
+  height: 100vh;
   padding: 0 20px;
 }
 
-.hero-text h1 {
-  font-family: 'Poppins', sans-serif;
+.content h1 {
+  font-size: 2.8rem;
   font-weight: 700;
-  font-size: 2.5rem;
-  color: white;
   margin: 10px 0;
 }
 
-.gradient-text {
+.gradient-name {
   background: linear-gradient(to right, #6366f1, #a855f7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
+  padding: 5px 15px;
+  border-radius: 12px;
+  color: white;
+  display: inline-block;
 }
+
+.subtitle {
+  margin-top: 20px;
+  color: #aaa;
+  font-size: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
