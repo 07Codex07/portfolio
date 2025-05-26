@@ -2,101 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Portfolio Landing</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at center, #1e1e1e, #121212);
-      color: #e0e0e0;
-      overflow: hidden;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #1e1e1e;
-      color: #ffffff;
-      font-size: 0.9rem;
-    }
-
-    nav ul {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #90caf9;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    nav a:hover {
-      color: #bb86fc;
-    }
-
-    .center-visual {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 400px;
-      height: 400px;
-      background: #2a2a2a;
-      border-radius: 50%;
-      box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
-    }
-
-    .tagline {
-      position: absolute;
-      bottom: 5rem;
-      left: 3rem;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: #e0e0e0;
-    }
-
-    .quote {
-      position: absolute;
-      bottom: 2rem;
-      left: 3rem;
-      font-size: 1.3rem;
-      font-weight: 900;
-      background: linear-gradient(145deg, #f0f0f0, #a0a0a0, #2a2a2a, #d0d0d0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinayak Sahu | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <div><strong>OPTIMIND</strong></div>
+    <div class="logo">Portfolio</div>
     <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Work</a></li>
-        <li><a href="#">Plans</a></li>
-        <li><a href="#">Team</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
+      <a href="#">Home</a>
+      <a href="#">Services</a>
+      <a href="#">Work</a>
+      <a href="#">Plans</a>
+      <a href="#">Team</a>
+      <a href="#">Contact</a>
     </nav>
   </header>
 
-  <div class="center-visual"></div>
-  
-  <div class="tagline">WE'RE A FULL-SERVICE<br />AI AUTOMATION AGENCY.</div>
-  <div class="quote">“Learning to extract clarity from complexity.”</div>
+  <section class="hero">
+    <div class="circle">
+      <p class="about-text">
+        I'm a passionate AI & ML enthusiast who thrives on solving real-world problems through data-driven thinking. 
+        With a strong foundation in machine learning, computer vision, and model deployment, I love turning abstract 
+        ideas into working prototypes. I combine fast learning with hands-on execution, and believe in building more 
+        than just projects—I build proof of potential.
+      </p>
+    </div>
+  </section>
 </body>
 </html>
 
