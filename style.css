@@ -1,4 +1,4 @@
-/* Reset + Base Styles */
+/* Reset and base styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -6,6 +6,8 @@ body, html {
   background-color: #000;
   font-family: 'Poppins', sans-serif;
   color: #fff;
+  background-image: radial-gradient(#222 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 .hero {
