@@ -1,60 +1,32 @@
-* {
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  height: 100%;
 }
 
-body {
-  background-color: #0a0a0a;
-  color: #fff;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-  background-color: #0a0a0a;
-  border-bottom: 1px solid #222;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #ffffff;
-}
-
-nav a {
-  margin-left: 20px;
-  color: #3da9fc;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-}
-
-.hero {
+.hero-section {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
-}
-
-.circle {
-  width: 400px;
-  height: 400px;
-  background-color: #1a1a1a;
-  border-radius: 50%;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
+  height: 100vh;
+  background-color: #000; /* Dark background */
+  background-image: radial-gradient(#222 1px, transparent 1px);
+  background-size: 20px 20px;
   text-align: center;
+  padding: 0 20px;
 }
 
-.about-text {
-  font-size: 0.95rem;
-  color: #d0d0d0;
-  line-height: 1.5;
+.hero-text h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: white;
+  margin: 10px 0;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
