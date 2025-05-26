@@ -1,29 +1,26 @@
 body {
-    background-color: #121212;
-    color: #f0f0f0;
-  }
-  
-  header, nav, footer {
-    background-color: #1e1e1e;
-  }
-  
-  a {
-    color: #90caf9;
-  }
-  
-  a:hover {
-    color: #bb86fc;
-  }
-  
-  button {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
-  }
-  
-  .section {
-    background-color: #1a1a1a;
-    padding: 20px;
-    border-radius: 8px;
-  }
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+header, nav, footer {
+  background-color: #1e1e1e;
+}
+
+a {
+  color: #90caf9;
+}
+
+a:hover {
+  color: #bb86fc;
+}
+
+.circle {
+  background: radial-gradient(circle, #2c2c2c 0%, #121212 100%);
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+/* Add other custom section styling as needed */
+
   
