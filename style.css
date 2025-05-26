@@ -3,11 +3,9 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #000;
+  background-color: #000; /* Solid black background */
   font-family: 'Poppins', sans-serif;
   color: #fff;
-  background-image: radial-gradient(#222 1px, transparent 1px);
-  background-size: 20px 20px;
 }
 
 .hero {
