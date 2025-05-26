@@ -1,59 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at center, #1e1e1e, #121212);
-  color: #e0e0e0;
-  overflow: hidden;
+  background-color: #0a0a0a;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #1e1e1e;
-  color: #ffffff;
-  font-size: 0.9rem;
+  padding: 20px 50px;
+  background-color: #0a0a0a;
+  border-bottom: 1px solid #222;
 }
 
-nav ul {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
 }
 
 nav a {
+  margin-left: 20px;
+  color: #3da9fc;
   text-decoration: none;
-  color: #90caf9;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
-nav a:hover {
-  color: #bb86fc;
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
 }
 
-.center-visual {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.circle {
   width: 400px;
   height: 400px;
-  background: url('https://cdn.spline.design/your-animation-placeholder.webm') center/cover no-repeat;
-  background-color: #2a2a2a;
+  background-color: #1a1a1a;
   border-radius: 50%;
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
 }
 
-.tagline {
-  position: absolute;
-  bottom: 3rem;
-  left: 3rem;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #e0e0e0;
+.about-text {
+  font-size: 0.95rem;
+  color: #d0d0d0;
+  line-height: 1.5;
 }
