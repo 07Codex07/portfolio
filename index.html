@@ -37,10 +37,13 @@
     }
 
     .gradient-name {
-      background: linear-gradient(to right, #6366f1, #a855f7);
-      padding: 6px 14px;
-      border-radius: 12px;
+      background: linear-gradient(270deg, #00c6ff, #0072ff, #6a00ff, #00c6ff);
+      background-size: 600% 600%;
+      animation: gradientShift 6s ease infinite;
+      padding: 0.6rem 1.6rem;
+      border-radius: 9999px;
       color: white;
+      font-weight: 800;
       display: inline-block;
       transition: transform 0.2s ease;
       cursor: pointer;
@@ -50,7 +53,12 @@
       transform: scale(1.05);
     }
 
-    /* Glowing effect background */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .glow-background {
       position: fixed;
       top: 0;
@@ -66,7 +74,6 @@
       transition: top 0.05s ease, left 0.05s ease;
     }
 
-    /* Magnetic Hover */
     .magnetic {
       display: inline-block;
       transition: transform 0.2s ease;
