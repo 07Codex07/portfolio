@@ -52,4 +52,16 @@ body, html {
   z-index: 1;
   transition: top 0.05s ease, left 0.05s ease;
 }
+/* code for magnetic hower*/
+.magnetic {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  will-change: transform;
+}
+
+.magnetic-wrap {
+  display: inline-block;
+  perspective: 1000px;
+}
+
 
