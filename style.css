@@ -1,22 +1,26 @@
-body, html {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
   height: 100%;
-  overflow: hidden;
   font-family: 'Poppins', sans-serif;
-  color: #fff;
-  background-color: #000;
+  background: #000;
+  color: white;
+  overflow: hidden;
 }
 
 .hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   position: relative;
   z-index: 2;
-  padding: 0 20px;
+  padding: 20px;
 }
 
 .content h1 {
@@ -27,22 +31,21 @@ body, html {
 
 .gradient-name {
   background: linear-gradient(to right, #6366f1, #a855f7);
-  padding: 5px 15px;
+  padding: 6px 14px;
   border-radius: 12px;
   color: white;
   display: inline-block;
 }
 
-/* Glowing effect background */
+/* Glowing effect background that follows cursor */
 .glow-background {
-  position: absolute;
-  width: 500px;
-  height: 500px;
+  position: fixed;
+  width: 600px;
+  height: 600px;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(0,123,255,0.4), transparent 60%);
+  background: radial-gradient(circle, rgba(0, 123, 255, 0.4), transparent 70%);
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   z-index: 1;
-  transition: transform 0.05s ease;
+  transition: transform 0.02s ease-out;
 }
-
