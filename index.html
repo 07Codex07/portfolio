@@ -43,14 +43,22 @@
       padding: 2rem;
     }
 
+    .intro-line {
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
     .name-pill {
-      padding: 0.8rem 2.2rem;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      display: inline-block;
+      padding: 0.6rem 1.6rem;
+      background: linear-gradient(270deg, #00c6ff, #0072ff, #6a00ff, #00c6ff);
+      background-size: 600% 600%;
+      animation: gradientShift 6s ease infinite;
       border-radius: 9999px;
       font-weight: 800;
       color: white;
-      font-size: 2.2rem;
-      margin-bottom: 1.5rem;
+      margin-left: 0.5rem;
       transition: transform 0.2s ease;
       cursor: pointer;
     }
@@ -60,10 +68,16 @@
     }
 
     .bold-tagline {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
       color: #fff;
       max-width: 700px;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .magnetic-wrap {
@@ -75,8 +89,11 @@
   <div class="spotlight" id="spotlight"></div>
 
   <div class="centered">
-    <div class="magnetic-wrap">
-      <div class="name-pill magnetic">Vinayak Sahu</div>
+    <div class="intro-line">
+      <span>Myself</span>
+      <span class="magnetic-wrap">
+        <span class="name-pill magnetic">Vinayak Sahu</span>
+      </span>
     </div>
     <div class="bold-tagline">
       Curious by nature, consistent by habit.
@@ -84,7 +101,7 @@
   </div>
 
   <script>
-    // Dynamic Spotlight Cursor Effect
+    // Spotlight Cursor Effect
     const spotlight = document.getElementById("spotlight");
     document.addEventListener("mousemove", (e) => {
       spotlight.style.setProperty('--x', `${e.clientX}px`);
@@ -111,3 +128,4 @@
   </script>
 </body>
 </html>
+
