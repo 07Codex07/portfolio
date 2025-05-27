@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,101 +11,95 @@
       box-sizing: border-box;
     }
 
-    body {
-      background-color: #000;
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: #000;
       color: white;
-      font-family: 'Inter', sans-serif;
-      height: 100vh;
       overflow: hidden;
-      position: relative;
     }
 
-    .spotlight {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,123,255,0.15), transparent 30%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .centered {
-      position: relative;
-      z-index: 1;
+    .hero {
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 2rem;
+      position: relative;
+      z-index: 2;
+      padding: 20px;
     }
 
-    .intro-line {
+    .content h1 {
+      font-size: 2.8rem;
       font-weight: 700;
-      font-size: 3rem;
-      margin-bottom: 1.5rem;
+      margin: 10px 0;
     }
 
-    .name-pill {
-      display: inline-block;
-      padding: 0.6rem 1.6rem;
-      background: linear-gradient(270deg, #00c6ff, #0072ff, #6a00ff, #00c6ff);
-      background-size: 600% 600%;
-      animation: gradientShift 6s ease infinite;
-      border-radius: 9999px;
-      font-weight: 800;
+    .gradient-name {
+      background: linear-gradient(to right, #6366f1, #a855f7);
+      padding: 6px 14px;
+      border-radius: 12px;
       color: white;
-      margin-left: 0.5rem;
+      display: inline-block;
       transition: transform 0.2s ease;
       cursor: pointer;
     }
 
-    .name-pill:hover {
+    .gradient-name:hover {
       transform: scale(1.05);
     }
 
-    .bold-tagline {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #fff;
-      max-width: 700px;
+    /* Glowing effect background */
+    .glow-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 500px;
+      height: 500px;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(0, 140, 255, 0.3), transparent 70%);
+      border-radius: 50%;
+      filter: blur(150px);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: top 0.05s ease, left 0.05s ease;
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* Magnetic Hover */
+    .magnetic {
+      display: inline-block;
+      transition: transform 0.2s ease;
+      will-change: transform;
     }
 
     .magnetic-wrap {
       display: inline-block;
+      perspective: 1000px;
     }
   </style>
 </head>
 <body>
-  <div class="spotlight" id="spotlight"></div>
+  <div class="glow-background" id="glow"></div>
 
-  <div class="centered">
-    <div class="intro-line">
-      <span>Myself</span>
-      <span class="magnetic-wrap">
-        <span class="name-pill magnetic">Vinayak Sahu</span>
-      </span>
-    </div>
-    <div class="bold-tagline">
-      Curious by nature, consistent by habit.
+  <div class="hero">
+    <div class="content">
+      <h1>
+        Myself
+        <span class="magnetic-wrap">
+          <span class="gradient-name magnetic">Vinayak Sahu</span>
+        </span>
+      </h1>
+      <p>Curious by nature, consistent by habit.</p>
     </div>
   </div>
 
   <script>
-    // Spotlight Cursor Effect
-    const spotlight = document.getElementById("spotlight");
+    // Glow Follows Cursor
+    const glow = document.getElementById("glow");
     document.addEventListener("mousemove", (e) => {
-      spotlight.style.setProperty('--x', ${e.clientX}px);
-      spotlight.style.setProperty('--y', ${e.clientY}px);
+      glow.style.left = `${e.clientX}px`;
+      glow.style.top = `${e.clientY}px`;
     });
 
     // Magnetic Hover Effect
@@ -119,7 +112,7 @@
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
 
-        magnet.style.transform = translate(${x * 0.2}px, ${y * 0.2}px);
+        magnet.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
       });
 
       parent.addEventListener('mouseleave', () => {
