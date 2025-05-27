@@ -28,12 +28,13 @@
       position: relative;
       z-index: 2;
       padding: 20px;
+      flex-direction: column;
     }
 
     .content h1 {
       font-size: 2.8rem;
       font-weight: 700;
-      margin: 10px 0;
+      margin: 10px 0 20px;
     }
 
     .gradient-name {
@@ -51,6 +52,14 @@
 
     .gradient-name:hover {
       transform: scale(1.05);
+    }
+
+    .tagline {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      max-width: 700px;
+      margin-top: 1rem;
     }
 
     @keyframes gradientShift {
@@ -97,7 +106,9 @@
           <span class="gradient-name magnetic">Vinayak Sahu</span>
         </span>
       </h1>
-      <p>Curious by nature, consistent by habit.</p>
+      <div class="tagline">
+        Curious by nature, consistent by habit.
+      </div>
     </div>
   </div>
 
