@@ -2,23 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vinayak Sahu</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinayak Sahu - Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .name-pill {
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      border-radius: 999px;
+      padding: 0.5em 1.2em;
+      display: inline-block;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 0.5em;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #ccc;
+      margin-top: 1rem;
+    }
+
+    .magnetic {
+      transition: transform 0.3s ease-out;
+      display: inline-block;
+    }
+
+    .cursor-bg {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,140,255,0.2) 0%, transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+  </style>
 </head>
 <body>
-  <div class="glow-background"></div>
+  <div class="cursor-bg" id="cursor-bg"></div>
 
-  <div class="hero">
-    <div class="content">
-      <h1>Curious by nature<br>Consistent by code</h1>
-      <h1>Myself <span class="gradient-name">Vinayak Sahu</span></h1>
+  <div class="centered">
+    <div class="magnetic-wrap">
+      <div class="magnetic name-pill">Myself Vinayak Sahu</div>
     </div>
+    <div class="subtitle">Curious by nature, consistent by habit, and always looking to push boundaries through code.</div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Magnetic hover effect
+    const magnets = document.querySelectorAll('.magnetic');
+
+    magnets.forEach((magnet) => {
+      const parent = magnet.closest('.magnetic-wrap');
+
+      parent.addEventListener('mousemove', (e) => {
+        const rect = parent.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        magnet.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+      });
+
+      parent.addEventListener('mouseleave', () => {
+        magnet.style.transform = 'translate(0, 0)';
+      });
+    });
+
+    // Dynamic cursor spotlight
+    const cursorBg = document.getElementById('cursor-bg');
+    document.addEventListener('mousemove', (e) => {
+      cursorBg.style.left = `${e.clientX}px`;
+      cursorBg.style.top = `${e.clientY}px`;
+    });
+  </script>
 </body>
 </html>
-<div class="magnetic-wrap">
-  <div class="magnetic name-pill">Vinayak Sahu</div>
-</div>
