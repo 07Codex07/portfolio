@@ -63,5 +63,40 @@ body, html {
   display: inline-block;
   perspective: 1000px;
 }
+<style>
+.tech-stack {
+  padding: 2rem;
+  text-align: center;
+}
+
+.tech-stack h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.tech-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+  align-items: center;
+  background-color: #0e0e0e;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.tech-logos img {
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease;
+  filter: grayscale(1) brightness(1.2);
+}
+
+.tech-logos img:hover {
+  transform: scale(1.2);
+  filter: none;
+}
+</style>
 
 
