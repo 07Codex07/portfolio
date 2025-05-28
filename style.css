@@ -68,3 +68,20 @@ body {
   display: inline-block;
   perspective: 1000px;
 }
+
+.tech-stack {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  color: #fff;
+  padding: 50px 20px;
+}
+
+.tech-stack h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
