@@ -85,3 +85,9 @@ body {
   margin-bottom: 20px;
 }
 
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
