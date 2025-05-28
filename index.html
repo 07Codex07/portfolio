@@ -182,3 +182,49 @@
   </script>
 </body>
 </html>
+
+<!-- ... keep your existing code above ... -->
+
+  </script>
+
+  <!-- 👇 New Tech Stack Section 👇 -->
+  <section id="tech-stack" style="background:#000; color:white; padding:4rem 1rem; text-align:center; position:relative; z-index:2;">
+    <h2 style="font-size:2rem; font-weight:700; margin-bottom:2rem;">My Tech Stack</h2>
+    
+    <!-- Swiper container -->
+    <div class="swiper mySwiper" style="width: 90%; max-width: 900px; margin: auto;">
+      <div class="swiper-wrapper" style="display: flex; align-items: center;">
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" style="height:60px;" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" style="height:60px;" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/keras/keras-original.svg" alt="Keras" style="height:60px;" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" style="height:60px;" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" style="height:60px;" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV" style="height:60px;" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" style="height:60px;" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" style="height:60px;" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <script>
+    new Swiper(".mySwiper", {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      loop: true,
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        640: { slidesPerView: 3 },
+        768: { slidesPerView: 4 },
+        1024: { slidesPerView: 5 },
+      }
+    });
+  </script>
+</body>
+</html>
