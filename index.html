@@ -125,6 +125,27 @@
     </div>
   </div>
 
+  <!-- Tech Stack Section -->
+  <section id="tech-stack" class="tech-stack-section">
+    <h2>My Tech Stack</h2>
+    
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/keras/keras-original.svg" alt="Keras" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" /></div>
+        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
   <script>
     // Glow Follows Cursor
     const glow = document.getElementById("glow");
@@ -181,30 +202,8 @@
     }
 
     drawStars();
-  </script>
 
-  <!-- 👇 New Tech Stack Section 👇 -->
-  <section id="tech-stack" style="background:#000; color:white; padding:4rem 1rem; text-align:center; position:relative; z-index:2;">
-    <h2 style="font-size:2rem; font-weight:700; margin-bottom:2rem;">My Tech Stack</h2>
-    
-    <div class="swiper mySwiper" style="width: 90%; max-width: 900px; margin: auto;">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" style="height:60px;" /></div>
-        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" style="height:60px;" /></div>
-        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" style="height:60px;" /></div>
-        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" style="height:60px;" /></div>
-        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/keras/keras-original.svg" alt="Keras" style="height:60px;" /></div>
-        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV" style="height:60px;" /></div>
-        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" style="height:60px;" /></div>
-        <div class="swiper-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" style="height:60px;" /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-  <script>
+    // Initialize Swiper
     new Swiper(".mySwiper", {
       slidesPerView: 3,
       spaceBetween: 30,

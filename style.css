@@ -15,9 +15,8 @@ body {
   background: #000;
   color: white;
   overflow-x: hidden;
-  overflow-y: auto; /* allow scrolling */
+  overflow-y: auto;
 }
-
 
 .hero {
   height: 100vh;
@@ -44,7 +43,6 @@ body {
   display: inline-block;
 }
 
-/* Glowing effect background that follows cursor */
 .glow-background {
   position: fixed;
   top: 0;
@@ -59,7 +57,7 @@ body {
   z-index: 1;
   transition: top 0.05s ease, left 0.05s ease;
 }
-/* code for magnetic hower*/
+
 .magnetic {
   display: inline-block;
   transition: transform 0.2s ease;
@@ -71,20 +69,26 @@ body {
   perspective: 1000px;
 }
 
-.tech-stack {
+.tech-stack-section {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #111;
-  color: #fff;
-  padding: 50px 20px;
+  position: relative;
+  z-index: 2;
+  padding: 4rem 1rem;
 }
 
-.tech-stack h2 {
+.tech-stack-section h2 {
   font-size: 2rem;
-  margin-bottom: 20px;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.swiper {
+  width: 90%;
+  max-width: 900px;
 }
 
 .swiper-slide {
@@ -93,3 +97,7 @@ body {
   align-items: center;
 }
 
+.swiper-slide img {
+  height: 60px;
+  width: auto;
+}
