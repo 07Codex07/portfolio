@@ -4,22 +4,21 @@ document.addEventListener('mousemove', (e) => {
   glow.style.left = `${e.clientX}px`;
   glow.style.top = `${e.clientY}px`;
 });
-<script>
-  const magnets = document.querySelectorAll('.magnetic');
 
-  magnets.forEach((magnet) => {
-    const parent = magnet.closest('.magnetic-wrap');
+const magnets = document.querySelectorAll('.magnetic');
 
-    parent.addEventListener('mousemove', (e) => {
-      const rect = parent.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
+magnets.forEach((magnet) => {
+  const parent = magnet.closest('.magnetic-wrap');
 
-      magnet.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-    });
+  parent.addEventListener('mousemove', (e) => {
+    const rect = parent.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
 
-    parent.addEventListener('mouseleave', () => {
-      magnet.style.transform = 'translate(0, 0)';
-    });
+    magnet.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
   });
-</script>
+
+  parent.addEventListener('mouseleave', () => {
+    magnet.style.transform = 'translate(0, 0)';
+  });
+});
