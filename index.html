@@ -48,25 +48,35 @@
       margin: 10px 0 20px;
     }
 
-    .gradient-name {
-      background: linear-gradient(270deg, #ff0080, #7928ca, #4338ca, #06b6d4, #ff0080);
-      background-size: 300% 300%;
-      animation: gradientShift 8s ease infinite;
-      padding: 0.6rem 1.6rem;
-      border-radius: 9999px;
-      color: white;
-      font-weight: 800;
-      display: inline-block;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
+  .gradient-name {
+  background: linear-gradient(270deg, #ff0080, #7928ca, #4338ca, #06b6d4, #ff0080);
+  background-size: 600% 600%;
+  animation: gradientShift 8s ease infinite;
+  padding: 0.6rem 1.6rem;
+  border-radius: 9999px;
+  color: white;
+  font-weight: 800;
+  display: inline-block;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
 
-    .gradient-name:hover {
-      transform: scale(1.05);
-      animation: gradientShift 3s ease infinite;
-      background-size: 200% 200%;
-    }
+.gradient-name:hover {
+  transform: scale(1.05);
+}
 
+/* Keyframes for shifting gradient */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
     .tagline {
       font-size: 1.6rem;
       font-weight: 700;
