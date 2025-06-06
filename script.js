@@ -1,4 +1,4 @@
-const glow = document.querySelector('.glow-background');
+const glow = document.getElementById('glow');
 
 document.addEventListener('mousemove', (e) => {
   glow.style.left = `${e.clientX}px`;
