@@ -279,15 +279,16 @@
   <script>
     // Starfield Background
    
-       function resizeCanvas() {
-       canvas.width = window.innerWidth;
-       canvas.height = window.innerHeight; 
-   }
+         // Starfield Background
+    const canvas = document.getElementById('stars'); // Initialize the canvas
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight; 
+    }
     
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-
-
   
     
     // Cursor glow effect
