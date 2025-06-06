@@ -21,7 +21,7 @@
       overflow-y: auto;
     }
 
-    #stars, #stars-tech {
+    #stars {
       position: fixed;
       top: 0;
       left: 0;
@@ -29,10 +29,6 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-    }
-
-    #stars-tech {
-      z-index: 1;
     }
 
     .social-links {
@@ -92,47 +88,41 @@
       margin: 10px 0 20px;
     }
 
-  .gradient-name {
-  background: linear-gradient(270deg, #ff0080, #7928ca, #4338ca, #06b6d4, #ff0080);
-  background-size: 600% 600%;
-  animation: gradientShift 8s ease infinite;
-  padding: 0.6rem 1.6rem;
-  border-radius: 9999px;
-  color: white;
-  font-weight: 800;
-  display: inline-block;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
+    .gradient-name {
+      background: linear-gradient(270deg, #ff0080, #7928ca, #4338ca, #06b6d4, #ff0080);
+      background-size: 600% 600%;
+      animation: gradientShift 8s ease infinite;
+      padding: 0.6rem 1.6rem;
+      border-radius: 9999px;
+      color: white;
+      font-weight: 800;
+      display: inline-block;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
 
-.gradient-name:hover {
-  transform: scale(1.05);
-}
+    .gradient-name:hover {
+      transform: scale(1.05);
+    }
 
-/* Keyframes for shifting gradient */
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
     .tagline {
       font-size: 1.6rem;
       font-weight: 700;
       color: #fff;
       max-width: 700px;
       margin-top: 1rem;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50% }
-      50% { background-position: 100% 50% }
-      100% { background-position: 0% 50% }
     }
 
     .glow-background {
@@ -190,6 +180,23 @@
       100% { background-position: 200% center; }
     }
 
+    .swiper {
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      height: 60px;
+      width: auto;
+      filter: brightness(1);
+    }
+
     @media (max-width: 768px) {
       .social-links {
         top: 1rem;
@@ -208,11 +215,9 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <canvas id="stars"></canvas>
-  <canvas id="stars-tech"></canvas>
   <div class="glow-background" id="glow"></div>
 
   <!-- Social Media Links -->
@@ -280,62 +285,74 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <script>
-    // Starfield Background for Hero Section
+    // Starfield Background
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
 
-    // Starfield Background for Tech Stack Section
-    const canvasTech = document.getElementById('stars-tech');
-    const ctxTech = canvasTech.getContext('2d');
-
     function resizeCanvas() {
       canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      canvasTech.width = window.innerWidth;
-      canvasTech.height = window.innerHeight;
+      canvas.height = document.body.scrollHeight;
     }
+    
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    const stars = Array.from({ length: 150 }, () => ({
+    // Create stars for the entire page height
+    const stars = Array.from({ length: 300 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5,
-      alpha: Math.random()
+      radius: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.8 + 0.2,
+      twinkleSpeed: Math.random() * 0.02 + 0.01
     }));
 
-    const starsTech = Array.from({ length: 150 }, () => ({
-      x: Math.random() * canvasTech.width,
-      y: Math.random() * canvasTech.height,
-      radius: Math.random() * 1.5,
-      alpha: Math.random()
-    }));
-
-    function drawStars() {
-      // Clear both canvases
+    function animateStars() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctxTech.clearRect(0, 0, canvasTech.width, canvasTech.height);
       
-      // Draw stars for hero section
       stars.forEach(star => {
+        // Twinkling effect
+        star.alpha += star.twinkleSpeed;
+        if (star.alpha > 1 || star.alpha < 0.2) {
+          star.twinkleSpeed = -star.twinkleSpeed;
+        }
+        
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
         ctx.fill();
       });
 
-      // Draw stars for tech stack section
-      starsTech.forEach(star => {
-        ctxTech.beginPath();
-        ctxTech.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctxTech.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-        ctxTech.fill();
-      });
-
-      requestAnimationFrame(drawStars);
+      requestAnimationFrame(animateStars);
     }
 
-    drawStars();
+    animateStars();
+
+    // Cursor glow effect
+    const glow = document.getElementById('glow');
+
+    document.addEventListener('mousemove', (e) => {
+      glow.style.left = `${e.clientX}px`;
+      glow.style.top = `${e.clientY}px`;
+    });
+
+    // Magnetic effect for name
+    const magnets = document.querySelectorAll('.magnetic');
+
+    magnets.forEach((magnet) => {
+      const parent = magnet.closest('.magnetic-wrap');
+
+      parent.addEventListener('mousemove', (e) => {
+        const rect = parent.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        magnet.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+      });
+
+      parent.addEventListener('mouseleave', () => {
+        magnet.style.transform = 'translate(0, 0)';
+      });
+    });
 
     // Initialize Swiper
     new Swiper(".mySwiper", {
@@ -352,7 +369,11 @@
         1024: { slidesPerView: 5 },
       }
     });
+
+    // Update canvas size when content changes
+    window.addEventListener('load', () => {
+      setTimeout(resizeCanvas, 100);
+    });
   </script>
-  <script src="script.js"></script>
 </body>
 </html>
