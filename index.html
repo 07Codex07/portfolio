@@ -21,15 +21,7 @@
       overflow-y: auto;
     }
 
-    #stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
+  
 
     .social-links {
       position: fixed;
@@ -297,34 +289,8 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Create stars for the entire page height
-    const stars = Array.from({ length: 300 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.8 + 0.2,
-      twinkleSpeed: Math.random() * 0.02 + 0.01
-    }));
 
-    function animateStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      stars.forEach(star => {
-        // Twinkling effect
-        star.alpha += star.twinkleSpeed;
-        if (star.alpha > 1 || star.alpha < 0.2) {
-          star.twinkleSpeed = -star.twinkleSpeed;
-        }
-        
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-        ctx.fill();
-      });
-
-      requestAnimationFrame(animateStars);
-    }
-
+  
     
     // Cursor glow effect
     const glow = document.getElementById('glow');
