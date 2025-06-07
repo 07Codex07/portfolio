@@ -61,8 +61,7 @@
     }
 
     .hero {
-      height: 80vh;
-      min-height: 600px;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -74,9 +73,15 @@
     }
 
     .content h1 {
-      font-size: 2.8rem;
+      font-size: 3.5rem;
       font-weight: 700;
       margin: 10px 0 20px;
+      color: white;
+    }
+
+    .myself-text {
+      color: #ffffff;
+      font-weight: 700;
     }
 
     .gradient-name {
@@ -205,13 +210,8 @@
         height: 20px;
       }
 
-      .hero {
-        height: 70vh;
-        min-height: 500px;
-      }
-
       .content h1 {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
       }
 
       .tagline {
@@ -225,7 +225,6 @@
   </style>
 </head>
 <body>
-  <canvas id="stars"></canvas>
   <div class="glow-background" id="glow"></div>
 
   <!-- Social Media Links -->
@@ -258,7 +257,7 @@
   <div class="hero">
     <div class="content">
       <h1>
-        Myself
+        <span class="myself-text">Myself</span>
         <span class="magnetic-wrap">
           <span class="gradient-name magnetic">Vinayak Sahu</span>
         </span>
@@ -293,56 +292,6 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <script>
-    // Starfield Background
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = document.documentElement.scrollHeight;
-    }
-    
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    // Create stars
-    const stars = [];
-    const numStars = 150; // Reduced from 200
-
-    for (let i = 0; i < numStars; i++) {
-        stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 2 + 0.5,
-            opacity: Math.random() * 0.8 + 0.2
-        });
-    }
-
-    function drawStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        stars.forEach(star => {
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-            ctx.fill();
-        });
-    }
-
-    // Initial draw
-    drawStars();
-
-    // Redraw on resize
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        // Redistribute stars on resize
-        stars.forEach(star => {
-            star.x = Math.random() * canvas.width;
-            star.y = Math.random() * canvas.height;
-        });
-        drawStars();
-    });
-    
     // Cursor glow effect
     const glow = document.getElementById('glow');
 
@@ -384,14 +333,6 @@
         768: { slidesPerView: 4 },
         1024: { slidesPerView: 5 },
       }
-    });
-
-    // Update canvas size when content changes
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        resizeCanvas();
-        drawStars();
-      }, 100);
     });
   </script>
 </body>
