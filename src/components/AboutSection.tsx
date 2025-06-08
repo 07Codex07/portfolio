@@ -28,20 +28,12 @@ const AboutSection: React.FC = () => {
           
           <div className="space-y-6 text-gray-300 leading-relaxed">
             <p className="text-lg">
-              I'm a fast-paced learner who prefers <strong className="text-neon-green">building over memorizing</strong>. 
-              I've created over <strong className="text-white">15 projects</strong>, ranging from handwritten equation 
-              solvers to fashion item recommendation engines using <strong className="text-neon-blue">YOLOv8</strong>, 
-              <strong className="text-neon-blue"> CLIP</strong>, and <strong className="text-neon-blue">FAISS</strong>. 
-              I'm deeply interested in real-world AI applications — <strong className="text-neon-green">Computer Vision</strong>, 
-              <strong className="text-neon-green"> NLP</strong>, and <strong className="text-neon-green">recommendation systems</strong> are my playground.
-            </p>
-            
-            <p className="text-lg">
-              My goal is to land a high-package internship within the next 6 months by building solid, 
-              portfolio-ready tools that reflect my potential. I work with <strong className="text-neon-blue">Python</strong>, 
-              <strong className="text-neon-blue"> TensorFlow</strong>, <strong className="text-neon-blue">PyTorch</strong>, 
-              and <strong className="text-neon-blue">Deep Learning</strong> frameworks to create intelligent systems 
-              that solve real problems.
+              I'm a passionate <strong className="text-neon-green">AI/ML practitioner</strong> with a strong foundation in 
+              data-driven development and real-world problem solving. My work bridges <strong className="text-neon-blue">computer vision</strong>, 
+              <strong className="text-neon-blue"> NLP</strong>, and <strong className="text-neon-blue">deep learning</strong> — bringing 
+              innovative ideas to life through clean code, robust models, and scalable solutions. Whether it's deploying 
+              <strong className="text-neon-green"> ML pipelines</strong>, building smart apps, or exploring cutting-edge research, 
+              I thrive on turning complexity into clarity.
             </p>
 
             <div className="pt-6 border-t border-light-gray">

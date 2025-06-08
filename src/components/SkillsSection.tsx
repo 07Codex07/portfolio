@@ -57,6 +57,10 @@ const SkillsSection: React.FC = () => {
       skills: ["Collaborative Filtering", "Similarity Search"]
     },
     {
+      title: "Data Analytics Tools",
+      skills: ["Power BI", "Tableau", "Pandas Profiling", "Excel (Advanced)", "Google Data Studio"]
+    },
+    {
       title: "Deployment",
       skills: ["Flask", "FastAPI", "Streamlit", "Netlify", "Vercel"]
     },
