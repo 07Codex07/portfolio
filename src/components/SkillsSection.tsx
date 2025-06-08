@@ -28,7 +28,7 @@ const SkillCategory: React.FC<SkillCategoryProps> = ({ title, skills, delay }) =
           className="px-3 py-1 bg-light-gray text-gray-300 text-sm border border-gray-600 hover:border-neon-green transition-all duration-200 cursor-default"
         >
           {skill}
-        </motion.span>
+        </span>
       ))}
     </div>
   </motion.div>
@@ -38,27 +38,31 @@ const SkillsSection: React.FC = () => {
   const skillCategories = [
     {
       title: "Languages",
-      skills: ["Python", "SQL", "JavaScript"]
+      skills: ["Python", "SQL", "Bash"]
     },
     {
-      title: "ML/DL Frameworks",
-      skills: ["TensorFlow", "Keras", "PyTorch", "Scikit-learn", "XGBoost"]
+      title: "Libraries & Frameworks",
+      skills: ["Pandas", "NumPy", "Scikit-learn", "TensorFlow", "Keras", "PyTorch", "OpenCV", "Matplotlib", "Seaborn", "Streamlit"]
+    },
+    {
+      title: "NLP & ML",
+      skills: ["NLTK", "SpaCy", "Transformers", "TF-IDF", "FAISS", "Cosine Similarity", "CLIP"]
     },
     {
       title: "Computer Vision",
-      skills: ["YOLOv8", "OpenCV", "MediaPipe", "CLIP"]
+      skills: ["YOLOv8", "OpenCV", "MediaPipe"]
     },
     {
-      title: "Data Science",
-      skills: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Kaggle"]
+      title: "Recommender Systems",
+      skills: ["Collaborative Filtering", "Similarity Search"]
     },
     {
-      title: "NLP & Search",
-      skills: ["NLTK", "Transformers", "FAISS", "TF-IDF"]
+      title: "Deployment",
+      skills: ["Flask", "FastAPI", "Streamlit", "Netlify", "Vercel"]
     },
     {
-      title: "Deployment & Tools",
-      skills: ["Flask", "FastAPI", "Git", "Colab", "Anaconda"]
+      title: "Tools & Platforms",
+      skills: ["Git", "Kaggle", "Google Colab", "Anaconda", "VS Code", "SQLite", "APIs", "JSON"]
     }
   ];
 

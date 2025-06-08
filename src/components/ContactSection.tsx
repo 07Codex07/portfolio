@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, Twitter } from 'lucide-react';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,13 +8,30 @@ const ContactSection: React.FC = () => {
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+    
+    try {
+      // Create mailto link with form data
+      const subject = encodeURIComponent(`Portfolio Contact: ${formData.name}`);
+      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+      const mailtoLink = `mailto:vinayak1672006@gmail.com?subject=${subject}&body=${body}`;
+      
+      // Open default email client
+      window.location.href = mailtoLink;
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus('idle'), 3000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -55,34 +72,45 @@ const ContactSection: React.FC = () => {
             
             <div className="space-y-4">
               <motion.a
-                href="mailto:vinayak@example.com"
+                href="mailto:vinayak1672006@gmail.com"
                 whileHover={{ x: 10 }}
                 className="flex items-center space-x-4 text-gray-300 hover:text-neon-green transition-colors duration-300 group"
               >
                 <Mail className="w-6 h-6 group-hover:text-neon-blue" />
-                <span className="text-lg">vinayak@example.com</span>
+                <span className="text-lg">vinayak1672006@gmail.com</span>
               </motion.a>
               
               <motion.a
-                href="https://github.com/vinayak"
+                href="https://github.com/07Codex07"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ x: 10 }}
                 className="flex items-center space-x-4 text-gray-300 hover:text-neon-green transition-colors duration-300 group"
               >
                 <Github className="w-6 h-6 group-hover:text-neon-blue" />
-                <span className="text-lg">github.com/vinayak</span>
+                <span className="text-lg">github.com/07Codex07</span>
               </motion.a>
               
               <motion.a
-                href="https://linkedin.com/in/vinayak"
+                href="https://www.linkedin.com/in/vinayak-sahu-8999a9259"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ x: 10 }}
                 className="flex items-center space-x-4 text-gray-300 hover:text-neon-green transition-colors duration-300 group"
               >
                 <Linkedin className="w-6 h-6 group-hover:text-neon-blue" />
-                <span className="text-lg">linkedin.com/in/vinayak</span>
+                <span className="text-lg">linkedin.com/in/vinayak-sahu</span>
+              </motion.a>
+
+              <motion.a
+                href="https://x.com/Vinayak97386184"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ x: 10 }}
+                className="flex items-center space-x-4 text-gray-300 hover:text-neon-green transition-colors duration-300 group"
+              >
+                <Twitter className="w-6 h-6 group-hover:text-neon-blue" />
+                <span className="text-lg">x.com/Vinayak97386184</span>
               </motion.a>
             </div>
           </motion.div>
@@ -133,12 +161,19 @@ const ContactSection: React.FC = () => {
               
               <motion.button
                 type="submit"
+                disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full px-6 py-3 bg-transparent border-2 border-neon-green text-neon-green font-mono uppercase tracking-wider hover:bg-neon-green hover:text-black transition-all duration-300 flex items-center justify-center space-x-2"
+                className={`w-full px-6 py-3 bg-transparent border-2 border-neon-green text-neon-green font-mono uppercase tracking-wider hover:bg-neon-green hover:text-black transition-all duration-300 flex items-center justify-center space-x-2 ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               >
                 <Send className="w-4 h-4" />
-                <span>Send Message</span>
+                <span>
+                  {isSubmitting ? 'Sending...' : 
+                   submitStatus === 'success' ? 'Message Sent!' :
+                   submitStatus === 'error' ? 'Try Again' : 'Send Message'}
+                </span>
               </motion.button>
             </form>
           </motion.div>

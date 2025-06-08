@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Eye, MessageSquare, Shield } from 'lucide-react';
+import { Brain, Eye, MessageSquare, Shield, Film, BookOpen } from 'lucide-react';
 
 interface ProjectCardProps {
   icon: React.ReactNode;
@@ -50,10 +50,10 @@ const ProjectsSection: React.FC = () => {
       tech: ["CNN", "OpenCV", "TensorFlow", "Python"]
     },
     {
-      icon: <MessageSquare className="w-8 h-8" />,
-      title: "Song Recommender Engine",
-      description: "NLP-based recommendation system that analyzes lyrics and mood to suggest personalized music using similarity search algorithms.",
-      tech: ["NLP", "NLTK", "Similarity Search", "Python"]
+      icon: <Film className="w-8 h-8" />,
+      title: "Your Next Watch",
+      description: "A Streamlit-based intelligent movie recommendation system. Uses NLP techniques, API integration, and cosine similarity to suggest movies based on mood and language.",
+      tech: ["Streamlit", "NLP", "API", "Cosine Similarity", "Recommender System"]
     },
     {
       icon: <Eye className="w-8 h-8" />,
@@ -62,10 +62,10 @@ const ProjectsSection: React.FC = () => {
       tech: ["YOLOv8", "CLIP", "FAISS", "Computer Vision"]
     },
     {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Fake News Detector",
-      description: "Deep learning model combining TF-IDF vectorization with neural networks to identify and classify fake news articles with high accuracy.",
-      tech: ["TF-IDF", "Deep Learning", "NLP", "Classification"]
+      icon: <BookOpen className="w-8 h-8" />,
+      title: "Book Recommender",
+      description: "ML-based book recommendation engine using collaborative filtering, TF-IDF vectorization, and NLP techniques to suggest personalized books.",
+      tech: ["Collaborative Filtering", "TF-IDF", "NLP", "Pandas", "Recommender System"]
     }
   ];
 
