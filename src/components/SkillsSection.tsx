@@ -28,7 +28,7 @@ const SkillCategory: React.FC<SkillCategoryProps> = ({ title, skills, delay }) =
           className="px-3 py-1 bg-light-gray text-gray-300 text-sm border border-gray-600 hover:border-neon-green transition-all duration-200 cursor-default"
         >
           {skill}
-        </span>
+        </motion.span>
       ))}
     </div>
   </motion.div>
