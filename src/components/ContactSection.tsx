@@ -8,31 +8,6 @@ const ContactSection: React.FC = () => {
     email: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      // Create mailto link with form data
-      const subject = encodeURIComponent(`Portfolio Contact: ${formData.name}`);
-      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-      const mailtoLink = `mailto:vinayak1672006@gmail.com?subject=${subject}&body=${body}`;
-      
-      // Open default email client
-      window.location.href = mailtoLink;
-      
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-      setTimeout(() => setSubmitStatus('idle'), 3000);
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -122,7 +97,12 @@ const ContactSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form action="https://formsubmit.co/vinayak1672006@gmail.com" method="POST" className="space-y-6">
+              {/* FormSubmit Configuration */}
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_next" value="https://vinayak-portfolio.netlify.app/thank-you.html" />
+              
               <div>
                 <input
                   type="text"
@@ -161,19 +141,12 @@ const ContactSection: React.FC = () => {
               
               <motion.button
                 type="submit"
-                disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full px-6 py-3 bg-transparent border-2 border-neon-green text-neon-green font-mono uppercase tracking-wider hover:bg-neon-green hover:text-black transition-all duration-300 flex items-center justify-center space-x-2 ${
-                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
+                className="w-full px-6 py-3 bg-transparent border-2 border-neon-green text-neon-green font-mono uppercase tracking-wider hover:bg-neon-green hover:text-black transition-all duration-300 flex items-center justify-center space-x-2"
               >
                 <Send className="w-4 h-4" />
-                <span>
-                  {isSubmitting ? 'Sending...' : 
-                   submitStatus === 'success' ? 'Message Sent!' :
-                   submitStatus === 'error' ? 'Try Again' : 'Send Message'}
-                </span>
+                <span>Send Message</span>
               </motion.button>
             </form>
           </motion.div>
