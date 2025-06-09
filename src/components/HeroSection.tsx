@@ -16,8 +16,8 @@ const HeroSection: React.FC = () => {
           transition={{ duration: 1, delay: 0.2 }}
         >
           <h1 className="text-6xl md:text-8xl font-bold mb-4 font-mono">
-            <span className="text-white font-bold">Vinayak</span>
-            <span className="text-neon-green animate-glow font-bold"> Sahu</span>
+            <span className="text-white font-bold">VINAYAK</span>
+            <span className="text-neon-green animate-glow font-bold"> SAHU</span>
           </h1>
         </motion.div>
 
