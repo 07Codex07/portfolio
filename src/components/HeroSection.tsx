@@ -1,10 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Download } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const downloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/Vinayak_Sahu_Resume.pdf';
+    link.download = 'Vinayak_Sahu_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -36,16 +45,29 @@ const HeroSection: React.FC = () => {
           </p>
         </motion.div>
 
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          onClick={scrollToAbout}
-          className="group relative px-8 py-3 bg-transparent border-2 border-neon-green text-neon-green font-mono text-sm uppercase tracking-wider hover:bg-neon-green hover:text-black transition-all duration-300 transform hover:scale-105"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <span className="relative z-10">Explore My Work</span>
-          <div className="absolute inset-0 bg-neon-green transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-        </motion.button>
+          <button
+            onClick={scrollToAbout}
+            className="group relative px-8 py-3 bg-transparent border-2 border-neon-green text-neon-green font-mono text-sm uppercase tracking-wider hover:bg-neon-green hover:text-black transition-all duration-300 transform hover:scale-105"
+          >
+            <span className="relative z-10">Explore My Work</span>
+            <div className="absolute inset-0 bg-neon-green transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+          </button>
+
+          <button
+            onClick={downloadResume}
+            className="group relative px-8 py-3 bg-transparent border-2 border-neon-blue text-neon-blue font-mono text-sm uppercase tracking-wider hover:bg-neon-blue hover:text-black transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            <span className="relative z-10">Download Resume</span>
+            <div className="absolute inset-0 bg-neon-blue transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+          </button>
+        </motion.div>
       </div>
 
       <motion.div
