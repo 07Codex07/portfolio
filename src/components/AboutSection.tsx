@@ -29,7 +29,8 @@ const AboutSection: React.FC = () => {
           <div className="space-y-6 text-gray-300 leading-relaxed">
             <p className="text-lg">
               I'm a passionate <strong className="text-neon-green">AI/ML practitioner</strong> with a strong foundation in 
-              data-driven development and real-world problem solving. My work bridges <strong className="text-neon-blue">computer vision</strong>, 
+              data-driven development and real-world problem solving. Currently in my <strong className="text-neon-blue">3rd year at Kalinga Institute of Industrial Technology</strong>, 
+              my work bridges <strong className="text-neon-blue">computer vision</strong>, 
               <strong className="text-neon-blue"> NLP</strong>, and <strong className="text-neon-blue">deep learning</strong> — bringing 
               innovative ideas to life through clean code, robust models, and scalable solutions. Whether it's deploying 
               <strong className="text-neon-green"> ML pipelines</strong>, building smart apps, or exploring cutting-edge research, 
@@ -38,7 +39,7 @@ const AboutSection: React.FC = () => {
 
             <div className="pt-6 border-t border-light-gray">
               <p className="text-neon-green font-mono text-sm uppercase tracking-wider">
-                19 years old • Self-taught • Ready to build the future
+                3rd Year Student • Self-taught • Ready to build the future
               </p>
             </div>
           </div>
