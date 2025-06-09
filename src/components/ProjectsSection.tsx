@@ -1,16 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Eye, MessageSquare, Shield, Film, BookOpen } from 'lucide-react';
+import { Brain, Eye, MessageSquare, Shield, Film, BookOpen, Github, ExternalLink } from 'lucide-react';
 
 interface ProjectCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
   tech: string[];
+  githubUrl?: string;
   delay: number;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ icon, title, description, tech, delay }) => (
+const ProjectCard: React.FC<ProjectCardProps> = ({ icon, title, description, tech, githubUrl, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -28,7 +29,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ icon, title, description, tec
     
     <p className="text-gray-300 mb-4 leading-relaxed">{description}</p>
     
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2 mb-4">
       {tech.map((item) => (
         <span
           key={item}
@@ -38,6 +39,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ icon, title, description, tec
         </span>
       ))}
     </div>
+
+    {githubUrl && (
+      <motion.a
+        href={githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        className="inline-flex items-center space-x-2 px-4 py-2 bg-transparent border border-neon-green text-neon-green hover:bg-neon-green hover:text-black transition-all duration-300 text-sm font-mono uppercase tracking-wider"
+      >
+        <Github className="w-4 h-4" />
+        <span>View Code</span>
+        <ExternalLink className="w-3 h-3" />
+      </motion.a>
+    )}
   </motion.div>
 );
 
@@ -53,19 +69,22 @@ const ProjectsSection: React.FC = () => {
       icon: <Film className="w-8 h-8" />,
       title: "Your Next Watch",
       description: "A Streamlit-based intelligent movie recommendation system. Uses NLP techniques, API integration, and cosine similarity to suggest movies based on mood and language.",
-      tech: ["Streamlit", "NLP", "API", "Cosine Similarity", "Recommender System"]
+      tech: ["Streamlit", "NLP", "API", "Cosine Similarity", "Recommender System"],
+      githubUrl: "https://github.com/07Codex07/Your-Next-Watch"
     },
     {
       icon: <Eye className="w-8 h-8" />,
       title: "Fashion Product Matcher",
       description: "Advanced computer vision pipeline using YOLOv8 for detection, CLIP for embeddings, and FAISS for fast similarity search from video streams.",
-      tech: ["YOLOv8", "CLIP", "FAISS", "Computer Vision"]
+      tech: ["YOLOv8", "CLIP", "FAISS", "Computer Vision"],
+      githubUrl: "https://github.com/07Codex07/Reel2Retail"
     },
     {
       icon: <BookOpen className="w-8 h-8" />,
       title: "Book Recommender",
       description: "ML-based book recommendation engine using collaborative filtering, TF-IDF vectorization, and NLP techniques to suggest personalized books.",
-      tech: ["Collaborative Filtering", "TF-IDF", "NLP", "Pandas", "Recommender System"]
+      tech: ["Collaborative Filtering", "TF-IDF", "NLP", "Pandas", "Recommender System"],
+      githubUrl: "https://github.com/07Codex07/Book_Recommender"
     }
   ];
 
@@ -96,6 +115,7 @@ const ProjectsSection: React.FC = () => {
               title={project.title}
               description={project.description}
               tech={project.tech}
+              githubUrl={project.githubUrl}
               delay={index * 0.1}
             />
           ))}
