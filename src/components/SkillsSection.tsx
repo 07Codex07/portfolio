@@ -38,7 +38,7 @@ const SkillsSection: React.FC = () => {
   const skillCategories = [
     {
       title: "Languages",
-      skills: ["Python", "SQL", "Bash"]
+      skills: ["Python", "Java", "SQL", "Bash"]
     },
     {
       title: "Libraries & Frameworks",
@@ -46,7 +46,7 @@ const SkillsSection: React.FC = () => {
     },
     {
       title: "NLP & ML",
-      skills: ["NLTK", "SpaCy", "Transformers", "TF-IDF", "FAISS", "Cosine Similarity", "CLIP"]
+      skills: ["NLTK", "SpaCy", "Transformers", "HuggingFace", "TF-IDF", "FAISS", "Cosine Similarity", "CLIP"]
     },
     {
       title: "Computer Vision",
