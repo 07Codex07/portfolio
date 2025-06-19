@@ -1,12 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  SiPython, FaJava, SiMysql, SiGnubash,
-  SiPandas, SiNumpy, SiScikitlearn, SiTensorflow, SiKeras, SiPytorch, SiOpencv,
+import { FaPython, FaJava } from 'react-icons/fa';
+import {
+  SiMysql, SiGnubash, SiPandas, SiNumpy, SiScikitlearn,
+  SiTensorflow, SiKeras, SiPytorch, SiOpencv,
   SiStreamlit, SiFlask, SiFastapi, SiNetlify, SiVercel,
-  SiGit, SiKaggle, SiAnaconda, SiVisualstudiocode,
+  SiGit, SiKaggle, SiVisualstudiocode,
   SiPowerbi, SiTableau, SiMicrosoftexcel
-} from 'react-icons/fa';
+} from 'react-icons/si';
 import { Database, Brain, Eye, Target, BarChart3, Wrench, Code2, Sparkles } from 'lucide-react';
 
 interface SkillCategoryProps {
@@ -176,7 +177,7 @@ const SkillsSection: React.FC = () => {
         { name: "Git", icon: <SiGit className="w-4 h-4" />, color: "text-orange-400" },
         { name: "Kaggle", icon: <SiKaggle className="w-4 h-4" />, color: "text-cyan-400" },
         { name: "Google Colab", color: "text-yellow-400" },
-        { name: "Anaconda", icon: <SiAnaconda className="w-4 h-4" />, color: "text-green-400" },
+        { name: "Anaconda", icon: <FaPython className="w-4 h-4" />, color: "text-green-400" },
         { name: "VS Code", icon: <SiVisualstudiocode className="w-4 h-4" />, color: "text-blue-400" },
         { name: "SQLite", icon: <Database className="w-4 h-4" />, color: "text-blue-300" },
         { name: "APIs", color: "text-purple-400" },
