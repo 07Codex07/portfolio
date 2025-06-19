@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaPython, FaJava } from 'react-icons/fa';
+import { FaJava } from 'react-icons/fa';
+import { SiPython } from 'react-icons/si'; 
 import {
   SiMysql, SiGnubash, SiPandas, SiNumpy, SiScikitlearn,
   SiTensorflow, SiKeras, SiPytorch, SiOpencv,
