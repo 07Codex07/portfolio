@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send, Twitter } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, Twitter, MessageCircle } from 'lucide-react';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,9 +16,36 @@ const ContactSection: React.FC = () => {
     });
   };
 
+  const socialLinks = [
+    {
+      icon: <Mail className="w-6 h-6" />,
+      label: "vinayak1672006@gmail.com",
+      href: "mailto:vinayak1672006@gmail.com",
+      color: "hover:text-red-400"
+    },
+    {
+      icon: <Github className="w-6 h-6" />,
+      label: "github.com/07Codex07",
+      href: "https://github.com/07Codex07",
+      color: "hover:text-gray-400"
+    },
+    {
+      icon: <Linkedin className="w-6 h-6" />,
+      label: "linkedin.com/in/vinayak-sahu",
+      href: "https://www.linkedin.com/in/vinayak-sahu-8999a9259",
+      color: "hover:text-blue-400"
+    },
+    {
+      icon: <Twitter className="w-6 h-6" />,
+      label: "x.com/Vinayak97386184",
+      href: "https://x.com/Vinayak97386184",
+      color: "hover:text-cyan-400"
+    }
+  ];
+
   return (
-    <section className="py-20 px-4 bg-dark-gray">
-      <div className="max-w-4xl mx-auto">
+    <section id="contact" className="py-20 px-4 relative">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -26,12 +53,13 @@ const ContactSection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-mono">
-            Let's <span className="text-neon-green">Connect</span>
+          <h2 className="text-5xl md:text-6xl font-black mb-6">
+            Let's <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Connect</span>
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed">
             I'm always open to collaboration, internships, or even deep tech conversations.
           </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full mt-6"></div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -43,50 +71,33 @@ const ContactSection: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="text-2xl font-bold text-white mb-8 font-mono">Get In Touch</h3>
-            
-            <div className="space-y-4">
-              <motion.a
-                href="mailto:vinayak1672006@gmail.com"
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-4 text-gray-300 hover:text-neon-green transition-colors duration-300 group"
-              >
-                <Mail className="w-6 h-6 group-hover:text-neon-blue" />
-                <span className="text-lg">vinayak1672006@gmail.com</span>
-              </motion.a>
+            <div className="glass-card p-8">
+              <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <MessageCircle className="w-8 h-8 text-cyan-400" />
+                Get In Touch
+              </h3>
               
-              <motion.a
-                href="https://github.com/07Codex07"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-4 text-gray-300 hover:text-neon-green transition-colors duration-300 group"
-              >
-                <Github className="w-6 h-6 group-hover:text-neon-blue" />
-                <span className="text-lg">github.com/07Codex07</span>
-              </motion.a>
-              
-              <motion.a
-                href="https://www.linkedin.com/in/vinayak-sahu-8999a9259"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-4 text-gray-300 hover:text-neon-green transition-colors duration-300 group"
-              >
-                <Linkedin className="w-6 h-6 group-hover:text-neon-blue" />
-                <span className="text-lg">linkedin.com/in/vinayak-sahu</span>
-              </motion.a>
-
-              <motion.a
-                href="https://x.com/Vinayak97386184"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-4 text-gray-300 hover:text-neon-green transition-colors duration-300 group"
-              >
-                <Twitter className="w-6 h-6 group-hover:text-neon-blue" />
-                <span className="text-lg">x.com/Vinayak97386184</span>
-              </motion.a>
+              <div className="space-y-6">
+                {socialLinks.map((link, index) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    target={link.href.startsWith('mailto:') ? '_self' : '_blank'}
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ x: 10, scale: 1.02 }}
+                    className={`flex items-center space-x-4 text-gray-300 ${link.color} transition-all duration-300 group p-3 rounded-lg hover:bg-white/5`}
+                  >
+                    <div className="group-hover:scale-110 transition-transform duration-300">
+                      {link.icon}
+                    </div>
+                    <span className="text-lg font-medium">{link.label}</span>
+                  </motion.a>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -96,6 +107,7 @@ const ContactSection: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
+            className="glass-card p-8"
           >
             <form action="https://formsubmit.co/vinayak1672006@gmail.com" method="POST" className="space-y-6">
               {/* FormSubmit Configuration */}
@@ -111,7 +123,7 @@ const ContactSection: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-medium-gray border border-light-gray text-white placeholder-gray-400 focus:border-neon-green focus:outline-none transition-colors duration-300"
+                  className="w-full px-4 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none transition-all duration-300 rounded-lg font-medium"
                 />
               </div>
               
@@ -123,7 +135,7 @@ const ContactSection: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-medium-gray border border-light-gray text-white placeholder-gray-400 focus:border-neon-green focus:outline-none transition-colors duration-300"
+                  className="w-full px-4 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none transition-all duration-300 rounded-lg font-medium"
                 />
               </div>
               
@@ -135,17 +147,17 @@ const ContactSection: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-medium-gray border border-light-gray text-white placeholder-gray-400 focus:border-neon-green focus:outline-none transition-colors duration-300 resize-none"
+                  className="w-full px-4 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none transition-all duration-300 resize-none rounded-lg font-medium"
                 />
               </div>
               
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full px-6 py-3 bg-transparent border-2 border-neon-green text-neon-green font-mono uppercase tracking-wider hover:bg-neon-green hover:text-black transition-all duration-300 flex items-center justify-center space-x-2"
+                className="w-full px-6 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold text-lg rounded-lg hover:from-purple-500 hover:to-pink-500 transition-all duration-300 flex items-center justify-center space-x-3 shadow-lg"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-5 h-5" />
                 <span>Send Message</span>
               </motion.button>
             </form>
