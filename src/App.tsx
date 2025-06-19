@@ -10,7 +10,7 @@ import BackgroundEffects from './components/BackgroundEffects';
 
 function App() {
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white min-h-screen font-sans relative overflow-x-hidden">
+    <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white min-h-screen font-sora relative overflow-x-hidden">
       <BackgroundEffects />
       <Navbar />
       

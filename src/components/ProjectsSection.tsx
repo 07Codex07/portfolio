@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Eye, MessageSquare, Shield, Film, BookOpen, Github, ExternalLink, Code, Zap } from 'lucide-react';
+import { Brain, Eye, Film, BookOpen, Github, ExternalLink, Sparkles, Zap } from 'lucide-react';
 
 interface ProjectCardProps {
   icon: React.ReactNode;
@@ -16,62 +16,104 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ icon, title, description, tec
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
+      initial={{ opacity: 0, y: 60, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.8, delay, ease: "easeOut" }}
       viewport={{ once: true }}
-      whileHover={{ y: -10, scale: 1.02 }}
+      whileHover={{ 
+        y: -15, 
+        scale: 1.03,
+        rotateY: 5,
+        rotateX: 5
+      }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="glass-card p-6 group relative overflow-hidden"
+      className="group relative perspective-1000"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      {/* Animated background glow */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-2xl"
+        animate={{
+          opacity: isHovered ? 1 : 0,
+          scale: isHovered ? 1.1 : 0.8
+        }}
+        transition={{ duration: 0.5 }}
+      />
       
-      <div className="relative z-10">
-        <div className="flex items-center mb-4">
-          <motion.div
-            animate={{ rotate: isHovered ? 360 : 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-cyan-400 group-hover:text-purple-400 transition-colors duration-300"
-          >
-            {icon}
-          </motion.div>
-          <h3 className="text-xl font-bold text-white ml-3">{title}</h3>
-        </div>
+      <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 group-hover:border-white/20 transition-all duration-500 h-full">
+        {/* Animated top border */}
+        <motion.div 
+          initial={{ width: 0 }}
+          whileInView={{ width: '100%' }}
+          transition={{ duration: 1, delay: delay + 0.3 }}
+          className="absolute top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-full"
+        />
         
-        <p className="text-gray-300 mb-6 leading-relaxed">{description}</p>
-        
-        <div className="flex flex-wrap gap-2 mb-6">
-          {tech.map((item, index) => (
-            <motion.span
-              key={item}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: delay + index * 0.05 }}
-              viewport={{ once: true }}
-              className="px-3 py-1 bg-white/5 backdrop-blur-sm text-cyan-400 text-xs border border-white/10 rounded-full font-medium"
+        <div className="relative z-10">
+          <div className="flex items-center mb-6">
+            <motion.div
+              animate={{ 
+                rotate: isHovered ? 360 : 0,
+                scale: isHovered ? 1.2 : 1
+              }}
+              transition={{ duration: 0.6 }}
+              className="text-cyan-400 group-hover:text-purple-400 transition-colors duration-500 mr-4"
             >
-              {item}
-            </motion.span>
-          ))}
-        </div>
+              {icon}
+            </motion.div>
+            <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
+              {title}
+            </h3>
+          </div>
+          
+          <p className="text-gray-300 mb-8 leading-relaxed text-lg group-hover:text-gray-200 transition-colors duration-300">
+            {description}
+          </p>
+          
+          {/* Tech stack with enhanced animations */}
+          <div className="flex flex-wrap gap-3 mb-8">
+            {tech.map((item, index) => (
+              <motion.span
+                key={item}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: delay + index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  scale: 1.1, 
+                  y: -3,
+                  boxShadow: "0 5px 15px rgba(6, 182, 212, 0.4)"
+                }}
+                className="px-4 py-2 bg-white/10 backdrop-blur-sm text-cyan-400 text-sm border border-cyan-400/30 rounded-full font-medium hover:border-cyan-400 hover:bg-cyan-400/10 transition-all duration-300 cursor-default"
+              >
+                {item}
+              </motion.span>
+            ))}
+          </div>
 
-        <AnimatePresence>
-          {githubUrl && (
-            <motion.a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-full hover:from-purple-500 hover:to-pink-500 transition-all duration-300 text-sm font-medium shadow-lg"
-            >
-              <Github className="w-4 h-4" />
-              <span>View Code</span>
-              <ExternalLink className="w-3 h-3" />
-            </motion.a>
-          )}
-        </AnimatePresence>
+          {/* GitHub button with enhanced styling */}
+          <AnimatePresence>
+            {githubUrl && (
+              <motion.a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 10px 30px rgba(6, 182, 212, 0.4)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-2xl hover:from-purple-500 hover:to-pink-500 transition-all duration-300 font-medium shadow-lg group/btn"
+              >
+                <Github className="w-5 h-5 group-hover/btn:rotate-12 transition-transform duration-300" />
+                <span>View Code</span>
+                <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+              </motion.a>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </motion.div>
   );
@@ -80,27 +122,27 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ icon, title, description, tec
 const ProjectsSection: React.FC = () => {
   const projects = [
     {
-      icon: <Brain className="w-8 h-8" />,
+      icon: <Brain className="w-10 h-10" />,
       title: "Handwritten Math Solver",
       description: "CNN-powered system that recognizes handwritten mathematical equations and solves them in real-time using computer vision.",
       tech: ["CNN", "OpenCV", "TensorFlow", "Python"]
     },
     {
-      icon: <Film className="w-8 h-8" />,
+      icon: <Film className="w-10 h-10" />,
       title: "Your Next Watch",
       description: "A Streamlit-based intelligent movie recommendation system. Uses NLP techniques, API integration, and cosine similarity to suggest movies based on mood and language.",
       tech: ["Streamlit", "NLP", "API", "Cosine Similarity", "Recommender System"],
       githubUrl: "https://github.com/07Codex07/Your-Next-Watch"
     },
     {
-      icon: <Eye className="w-8 h-8" />,
+      icon: <Eye className="w-10 h-10" />,
       title: "Fashion Product Matcher",
       description: "Advanced computer vision pipeline using YOLOv8 for detection, CLIP for embeddings, and FAISS for fast similarity search from video streams.",
       tech: ["YOLOv8", "CLIP", "FAISS", "Computer Vision"],
       githubUrl: "https://github.com/07Codex07/Reel2Retail"
     },
     {
-      icon: <BookOpen className="w-8 h-8" />,
+      icon: <BookOpen className="w-10 h-10" />,
       title: "Book Recommender",
       description: "ML-based book recommendation engine using collaborative filtering, TF-IDF vectorization, and NLP techniques to suggest personalized books.",
       tech: ["Collaborative Filtering", "TF-IDF", "NLP", "Pandas", "Recommender System"],
@@ -118,6 +160,21 @@ const ProjectsSection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          <div className="flex justify-center mb-6">
+            <motion.div
+              animate={{ 
+                rotate: 360,
+                scale: [1, 1.3, 1]
+              }}
+              transition={{ 
+                rotate: { duration: 12, repeat: Infinity, ease: "linear" },
+                scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+              }}
+            >
+              <Zap className="w-12 h-12 text-cyan-400" />
+            </motion.div>
+          </div>
+          
           <h2 className="text-5xl md:text-6xl font-black mb-6">
             🧠 What I've <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Built</span>
           </h2>
@@ -125,7 +182,12 @@ const ProjectsSection: React.FC = () => {
             <strong className="text-white">15+ AI/ML projects</strong> across CV, NLP, and recommender systems. 
             Some highlights include:
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"></div>
+          <motion.div 
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -137,7 +199,7 @@ const ProjectsSection: React.FC = () => {
               description={project.description}
               tech={project.tech}
               githubUrl={project.githubUrl}
-              delay={index * 0.1}
+              delay={index * 0.2}
             />
           ))}
         </div>
@@ -145,15 +207,22 @@ const ProjectsSection: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
           className="text-center"
         >
-          <div className="glass-card p-6 inline-block">
-            <p className="text-gray-400 text-lg font-medium">
-              + 11 more projects spanning deep learning, data analysis, and intelligent automation
-            </p>
-          </div>
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="inline-block bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-500"
+          >
+            <div className="flex items-center justify-center space-x-3">
+              <Sparkles className="w-6 h-6 text-purple-400" />
+              <p className="text-gray-400 text-lg font-medium">
+                + 11 more projects spanning deep learning, data analysis, and intelligent automation
+              </p>
+              <Sparkles className="w-6 h-6 text-cyan-400" />
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
