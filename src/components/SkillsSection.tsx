@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  SiPython, SiJava, SiMysql, SiGnubash,
+  SiPython, FaJava, SiMysql, SiGnubash,
   SiPandas, SiNumpy, SiScikitlearn, SiTensorflow, SiKeras, SiPytorch, SiOpencv,
   SiStreamlit, SiFlask, SiFastapi, SiNetlify, SiVercel,
   SiGit, SiKaggle, SiAnaconda, SiVisualstudiocode,
   SiPowerbi, SiTableau, SiMicrosoftexcel
-} from 'react-icons/si';
+} from 'react-icons/fa';
 import { Database, Brain, Eye, Target, BarChart3, Wrench, Code2, Sparkles } from 'lucide-react';
 
 interface SkillCategoryProps {
@@ -88,7 +88,7 @@ const SkillsSection: React.FC = () => {
       categoryIcon: <Code2 className="w-6 h-6" />,
       skills: [
         { name: "Python", icon: <SiPython className="w-4 h-4" />, color: "text-yellow-400" },
-        { name: "Java", icon: <SiJava className="w-4 h-4" />, color: "text-red-400" },
+        { name: "Java", icon: <FaJava className="w-4 h-4" />, color: "text-red-400" },
         { name: "SQL", icon: <SiMysql className="w-4 h-4" />, color: "text-blue-400" },
         { name: "Bash", icon: <SiGnubash className="w-4 h-4" />, color: "text-green-400" }
       ],
