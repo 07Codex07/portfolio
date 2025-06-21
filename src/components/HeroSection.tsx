@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Download, Sparkles, Zap, Code, Brain } from 'lucide-react';
+import { Github, Download, Mail, MapPin, ChevronDown } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
+  const [displayText, setDisplayText] = useState('');
+  const fullText = 'Building AI tools. Solving real problems.';
+
+  useEffect(() => {
+    let index = 0;
+    const timer = setInterval(() => {
+      if (index <= fullText.length) {
+        setDisplayText(fullText.slice(0, index));
+        index++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 100);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -16,185 +33,127 @@ const HeroSection: React.FC = () => {
     document.body.removeChild(link);
   };
 
-  const scrollToProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      {/* Floating geometric shapes */}
+    <section id="hero" className="min-h-screen flex items-center justify-center relative pt-16">
+      {/* Matrix-style background effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{ 
-            rotate: 360,
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ 
-            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-          }}
-          className="absolute top-1/4 left-1/4 w-32 h-32 border border-cyan-400/30 rounded-full"
-        />
-        <motion.div
-          animate={{ 
-            rotate: -360,
-            y: [0, -20, 0],
-          }}
-          transition={{ 
-            rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-            y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
-          }}
-          className="absolute top-1/3 right-1/4 w-24 h-24 border border-purple-400/30"
-          style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }}
-        />
-        <motion.div
-          animate={{ 
-            rotate: 360,
-            x: [0, 30, 0],
-          }}
-          transition={{ 
-            rotate: { duration: 15, repeat: Infinity, ease: "linear" },
-            x: { duration: 5, repeat: Infinity, ease: "easeInOut" }
-          }}
-          className="absolute bottom-1/3 left-1/3 w-20 h-20 bg-gradient-to-r from-pink-500/20 to-cyan-500/20 rounded-lg"
-        />
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-green-400 rounded-full animate-pulse opacity-30"></div>
+        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-green-400 rounded-full animate-pulse opacity-40" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse opacity-20" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-1 h-1 bg-green-400 rounded-full animate-pulse opacity-35" style={{ animationDelay: '0.5s' }}></div>
       </div>
 
-      <div className="text-center z-10 px-4 max-w-6xl mx-auto">
-        {/* Floating text box */}
+      <div className="text-center z-10 px-4 max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 100, scale: 0.8 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
-          {/* Glassmorphism container */}
-          <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl shadow-cyan-500/10">
-            {/* Animated border glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl animate-pulse"></div>
-            
-            <div className="relative z-10">
-              {/* Animated icons */}
-              <motion.div
-                animate={{ 
-                  rotate: [0, 360],
-                  scale: [1, 1.1, 1]
-                }}
-                transition={{ 
-                  rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-                }}
-                className="flex justify-center items-center space-x-4 mb-8"
-              >
-                <Brain className="w-8 h-8 text-cyan-400" />
-                <Sparkles className="w-10 h-10 text-purple-400" />
-                <Code className="w-8 h-8 text-pink-400" />
-              </motion.div>
-              
-              <motion.h1 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.3 }}
-                className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-none"
-              >
-                <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
-                  VINAYAK
-                </span>
-                <br />
-                <motion.span 
-                  animate={{ 
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-                  }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-                  style={{ backgroundSize: '200% 200%' }}
-                >
-                  SAHU
-                </motion.span>
-              </motion.h1>
+          <motion.h1 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, delay: 0.2 }}
+            className="text-6xl md:text-8xl font-bold mb-4 text-green-400 font-mono tracking-tight"
+            style={{
+              textShadow: '0 0 20px rgba(34, 197, 94, 0.5), 0 0 40px rgba(34, 197, 94, 0.3)',
+            }}
+          >
+            VINAYAK SAHU
+          </motion.h1>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.6 }}
-                className="mb-8"
-              >
-                <h2 className="text-2xl md:text-4xl font-bold text-cyan-400 mb-4">
-                  AI/ML Developer | Building Intelligent Systems
-                </h2>
-                <p className="text-gray-300 max-w-3xl mx-auto text-lg md:text-xl leading-relaxed">
-                  Turning raw data and neural networks into real-world applications.<br />
-                  <span className="text-purple-400 font-semibold">Self-taught. Relentless. Focused.</span>
-                </p>
-              </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="text-2xl md:text-3xl font-semibold text-white mb-2"
+          >
+            AI/ML & Data Science Practitioner
+          </motion.h2>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.9 }}
-                className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-              >
-                <motion.button
-                  onClick={scrollToProjects}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -5,
-                    boxShadow: "0 20px 40px rgba(6, 182, 212, 0.3)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold text-lg rounded-2xl overflow-hidden shadow-2xl"
-                >
-                  <span className="relative z-10 flex items-center space-x-2">
-                    <Zap className="w-5 h-5" />
-                    <span>View Projects</span>
-                  </span>
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500"
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileHover={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.button>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="flex items-center justify-center text-gray-400 mb-6"
+          >
+            <MapPin className="w-4 h-4 mr-2" />
+            <span>Bhubaneswar, Odisha, India</span>
+          </motion.div>
 
-                <motion.button
-                  onClick={downloadResume}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -5,
-                    borderColor: "rgba(6, 182, 212, 1)",
-                    boxShadow: "0 0 30px rgba(6, 182, 212, 0.5)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group relative px-8 py-4 bg-transparent border-2 border-cyan-400/50 text-cyan-400 font-bold text-lg rounded-2xl hover:bg-cyan-400/10 transition-all duration-300 flex items-center gap-3 backdrop-blur-sm"
-                >
-                  <Download className="w-5 h-5" />
-                  <span>Download Resume</span>
-                </motion.button>
-              </motion.div>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.0 }}
+            className="text-xl md:text-2xl text-green-300 mb-8 font-mono h-8"
+          >
+            {displayText}
+            <span className="animate-pulse">|</span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.2 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <motion.a
+              href="https://github.com/07Codex07"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ 
+                scale: 1.05, 
+                boxShadow: "0 0 20px rgba(34, 197, 94, 0.5)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center space-x-2 px-6 py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition-all duration-300"
+            >
+              <Github className="w-5 h-5" />
+              <span>GitHub</span>
+            </motion.a>
+
+            <motion.button
+              onClick={downloadResume}
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 20px rgba(34, 197, 94, 0.3)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center space-x-2 px-6 py-3 border-2 border-green-500 text-green-400 font-semibold rounded-lg hover:bg-green-500/10 transition-all duration-300"
+            >
+              <Download className="w-5 h-5" />
+              <span>Resume</span>
+            </motion.button>
+
+            <motion.a
+              href="mailto:vinayaksahu1672006@gmail.com"
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 20px rgba(34, 197, 94, 0.3)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center space-x-2 px-6 py-3 border-2 border-green-500 text-green-400 font-semibold rounded-lg hover:bg-green-500/10 transition-all duration-300"
+            >
+              <Mail className="w-5 h-5" />
+              <span>Email</span>
+            </motion.a>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Animated scroll indicator */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
+        transition={{ duration: 1, delay: 2 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <motion.div
-          animate={{ y: [0, 15, 0] }}
+          animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="cursor-pointer group"
+          className="cursor-pointer"
           onClick={scrollToAbout}
         >
-          <div className="flex flex-col items-center space-y-2">
-            <span className="text-cyan-400 text-sm font-medium opacity-70 group-hover:opacity-100 transition-opacity">
-              Scroll Down
-            </span>
-            <ChevronDown className="w-6 h-6 text-cyan-400 group-hover:text-purple-400 transition-colors" />
-          </div>
+          <ChevronDown className="w-6 h-6 text-green-400" />
         </motion.div>
       </motion.div>
     </section>
