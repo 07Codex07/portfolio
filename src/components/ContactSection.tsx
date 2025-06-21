@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send, Twitter, MessageCircle, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Send, CheckCircle, X } from 'lucide-react';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +8,7 @@ const ContactSection: React.FC = () => {
     email: '',
     message: ''
   });
+  const [showToast, setShowToast] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -16,40 +17,39 @@ const ContactSection: React.FC = () => {
     });
   };
 
-  const socialLinks = [
-    {
-      icon: <Mail className="w-6 h-6" />,
-      label: "vinayak1672006@gmail.com",
-      href: "mailto:vinayak1672006@gmail.com",
-      color: "hover:text-red-400",
-      bgColor: "hover:bg-red-500/10"
-    },
-    {
-      icon: <Github className="w-6 h-6" />,
-      label: "github.com/07Codex07",
-      href: "https://github.com/07Codex07",
-      color: "hover:text-gray-300",
-      bgColor: "hover:bg-gray-500/10"
-    },
-    {
-      icon: <Linkedin className="w-6 h-6" />,
-      label: "linkedin.com/in/vinayak-sahu",
-      href: "https://www.linkedin.com/in/vinayak-sahu-8999a9259",
-      color: "hover:text-blue-400",
-      bgColor: "hover:bg-blue-500/10"
-    },
-    {
-      icon: <Twitter className="w-6 h-6" />,
-      label: "x.com/Vinayak97386184",
-      href: "https://x.com/Vinayak97386184",
-      color: "hover:text-cyan-400",
-      bgColor: "hover:bg-cyan-500/10"
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Create FormData for FormSubmit
+    const form = new FormData();
+    form.append('name', formData.name);
+    form.append('email', formData.email);
+    form.append('message', formData.message);
+    form.append('_captcha', 'false');
+    form.append('_template', 'table');
+
+    try {
+      await fetch('https://formsubmit.co/vinayaksahu1672006@gmail.com', {
+        method: 'POST',
+        body: form
+      });
+      
+      // Show success toast
+      setShowToast(true);
+      
+      // Reset form
+      setFormData({ name: '', email: '', message: '' });
+      
+      // Hide toast after 5 seconds
+      setTimeout(() => setShowToast(false), 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
     }
-  ];
+  };
 
   return (
     <section id="contact" className="py-20 px-4 relative">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,131 +57,35 @@ const ContactSection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="flex justify-center mb-6">
-            <motion.div
-              animate={{ 
-                rotate: [0, 10, -10, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-            >
-              <MessageCircle className="w-12 h-12 text-purple-400" />
-            </motion.div>
+          <div className="flex items-center justify-center mb-6">
+            <Mail className="w-8 h-8 text-green-400 mr-3" />
+            <h2 className="text-4xl md:text-5xl font-bold text-green-400 font-mono">
+              Contact
+            </h2>
           </div>
-          
-          <h2 className="text-5xl md:text-6xl font-black mb-6">
-            Let's <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Connect</span>
-          </h2>
-          <p className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed mb-6">
-            I'm always open to collaboration, internships, or even deep tech conversations.
+          <div className="w-24 h-1 bg-green-400 mx-auto rounded-full mb-4"></div>
+          <p className="text-gray-400 text-lg">
+            Let's connect and discuss opportunities
           </p>
-          <motion.div 
-            initial={{ width: 0 }}
-            whileInView={{ width: 96 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"
-          />
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Links */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <motion.div
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="relative group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              
-              <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 group-hover:border-white/20 transition-all duration-500">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  whileInView={{ width: '100%' }}
-                  transition={{ duration: 1, delay: 0.3 }}
-                  className="absolute top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-full"
-                />
-                
-                <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Sparkles className="w-8 h-8 text-cyan-400" />
-                  </motion.div>
-                  Get In Touch
-                </h3>
-                
-                <div className="space-y-4">
-                  {socialLinks.map((link, index) => (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target={link.href.startsWith('mailto:') ? '_self' : '_blank'}
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                      viewport={{ once: true }}
-                      whileHover={{ 
-                        x: 15, 
-                        scale: 1.03,
-                        boxShadow: "0 10px 25px rgba(6, 182, 212, 0.2)"
-                      }}
-                      className={`flex items-center space-x-4 text-gray-300 ${link.color} ${link.bgColor} transition-all duration-300 group/link p-4 rounded-2xl border border-white/5 hover:border-white/20`}
-                    >
-                      <motion.div 
-                        whileHover={{ rotate: 360, scale: 1.2 }}
-                        transition={{ duration: 0.5 }}
-                        className="group-hover/link:drop-shadow-lg"
-                      >
-                        {link.icon}
-                      </motion.div>
-                      <span className="text-lg font-medium">{link.label}</span>
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.02, y: -5 }}
-            className="relative group"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-cyan-500/10 to-pink-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <div className="bg-gray-900/50 backdrop-blur-sm border border-green-500/20 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+            {/* Subtle glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent rounded-2xl"></div>
             
-            <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 group-hover:border-white/20 transition-all duration-500">
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: '100%' }}
-                transition={{ duration: 1, delay: 0.6 }}
-                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-purple-400 via-cyan-400 to-pink-400 rounded-full"
-              />
-              
-              <form action="https://formsubmit.co/vinayak1672006@gmail.com" method="POST" className="space-y-6">
-                {/* FormSubmit Configuration */}
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_next" value="https://vinayak-portfolio.netlify.app/thank-you.html" />
-                
+            <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
                   viewport={{ once: true }}
                 >
                   <input
@@ -191,14 +95,14 @@ const ContactSection: React.FC = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 rounded-2xl font-medium hover:bg-white/10"
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 rounded-lg"
                   />
                 </motion.div>
                 
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
                   viewport={{ once: true }}
                 >
                   <input
@@ -208,49 +112,71 @@ const ContactSection: React.FC = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 rounded-2xl font-medium hover:bg-white/10"
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 rounded-lg"
                   />
                 </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
-                  viewport={{ once: true }}
-                >
-                  <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 resize-none rounded-2xl font-medium hover:bg-white/10"
-                  />
-                </motion.div>
-                
-                <motion.button
-                  type="submit"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.0 }}
-                  viewport={{ once: true }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -3,
-                    boxShadow: "0 20px 40px rgba(6, 182, 212, 0.3)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold text-lg rounded-2xl hover:from-purple-500 hover:to-pink-500 transition-all duration-300 flex items-center justify-center space-x-3 shadow-lg group/btn"
-                >
-                  <Send className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                  <span>Send Message</span>
-                </motion.button>
-              </form>
+              </div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 resize-none rounded-lg"
+                />
+              </motion.div>
+              
+              <motion.button
+                type="submit"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  boxShadow: "0 10px 25px rgba(34, 197, 94, 0.4)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full md:w-auto px-8 py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition-all duration-300 flex items-center justify-center space-x-2"
+              >
+                <Send className="w-5 h-5" />
+                <span>Send Message</span>
+              </motion.button>
+            </form>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Success Toast */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="fixed bottom-8 right-8 z-50"
+          >
+            <div className="bg-green-500 text-black px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3">
+              <CheckCircle className="w-5 h-5" />
+              <span className="font-semibold">Message Sent! I'll reach out to you shortly.</span>
+              <button
+                onClick={() => setShowToast(false)}
+                className="ml-2 hover:bg-green-600 rounded-full p-1 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
           </motion.div>
-        </div>
-      </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
