@@ -2,7 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
 
 * {
   margin: 0;
@@ -15,39 +15,38 @@ html {
 }
 
 body {
-  font-family: 'Sora', 'Inter', system-ui, -apple-system, sans-serif;
-  background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #000000;
   color: #ffffff;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* Custom scrollbar with neon glow */
+/* Custom scrollbar with green theme */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.8);
-  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.8);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899);
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+  background: linear-gradient(45deg, #22c55e, #16a34a);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, #0891b2, #7c3aed, #db2777);
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
+  background: linear-gradient(45deg, #16a34a, #15803d);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
 }
 
-/* Selection color with neon glow */
+/* Selection color with green theme */
 ::selection {
-  background: rgba(6, 182, 212, 0.3);
+  background: rgba(34, 197, 94, 0.3);
   color: #ffffff;
-  text-shadow: 0 0 10px rgba(6, 182, 212, 0.8);
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
 }
 
 /* Enhanced smooth animations */
@@ -55,12 +54,12 @@ body {
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Enhanced focus styles with glow */
+/* Enhanced focus styles with green glow */
 button:focus,
 input:focus,
 textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.5), 0 0 20px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.5), 0 0 20px rgba(34, 197, 94, 0.3);
 }
 
 /* Prevent horizontal scroll */
@@ -69,95 +68,50 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Enhanced gradient text animation */
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 4s ease infinite;
-}
-
-/* Enhanced floating animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-15px) rotate(1deg); }
-  66% { transform: translateY(-5px) rotate(-1deg); }
-}
-
-.animate-float {
-  animation: float 8s ease-in-out infinite;
-}
-
-/* Neon glow effects */
-.glow-cyan {
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), 0 0 40px rgba(6, 182, 212, 0.4);
-}
-
-.glow-purple {
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(139, 92, 246, 0.4);
-}
-
-.glow-pink {
-  box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 40px rgba(236, 72, 153, 0.4);
+/* Matrix-style text glow */
+.text-glow {
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.5), 0 0 20px rgba(34, 197, 94, 0.3);
 }
 
 /* Enhanced backdrop blur support */
 @supports (backdrop-filter: blur(20px)) {
-  .backdrop-blur-2xl {
-    backdrop-filter: blur(40px);
+  .backdrop-blur-xl {
+    backdrop-filter: blur(20px);
   }
 }
 
 @supports not (backdrop-filter: blur(20px)) {
-  .backdrop-blur-2xl {
-    background: rgba(255, 255, 255, 0.1);
+  .backdrop-blur-xl {
+    background: rgba(0, 0, 0, 0.8);
   }
 }
 
-/* Perspective for 3D effects */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-/* Custom animations for enhanced interactivity */
-@keyframes pulse-glow {
+/* Custom animations for cyberpunk feel */
+@keyframes matrix-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.4);
   }
   50% {
-    box-shadow: 0 0 30px rgba(6, 182, 212, 0.8), 0 0 40px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.8), 0 0 30px rgba(34, 197, 94, 0.4);
   }
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
-/* Enhanced text shadows for better readability */
-.text-shadow {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.text-shadow-glow {
-  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+.animate-matrix-glow {
+  animation: matrix-glow 3s ease-in-out infinite;
 }
 
 /* Improved mobile responsiveness */
 @media (max-width: 768px) {
+  .text-4xl {
+    font-size: 2rem;
+  }
+  
   .text-5xl {
     font-size: 2.5rem;
   }
   
   .text-6xl {
     font-size: 3rem;
-  }
-  
-  .text-7xl {
-    font-size: 3.5rem;
   }
   
   .text-8xl {
