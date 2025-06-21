@@ -2,23 +2,23 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
-import SkillsSection from './components/SkillsSection';
 import ProjectsSection from './components/ProjectsSection';
+import CertificationsSection from './components/CertificationsSection';
+import TechStackSection from './components/TechStackSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
-import BackgroundEffects from './components/BackgroundEffects';
 
 function App() {
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white min-h-screen font-sora relative overflow-x-hidden">
-      <BackgroundEffects />
+    <div className="bg-black text-white min-h-screen font-inter relative overflow-x-hidden">
       <Navbar />
       
-      <main className="relative z-10">
+      <main className="relative">
         <HeroSection />
         <AboutSection />
-        <SkillsSection />
         <ProjectsSection />
+        <CertificationsSection />
+        <TechStackSection />
         <ContactSection />
       </main>
       
