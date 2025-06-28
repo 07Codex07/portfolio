@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Send, CheckCircle, X } from 'lucide-react';
+import { Mail, Send, CheckCircle, X, AlertCircle, Loader } from 'lucide-react';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +8,11 @@ const ContactSection: React.FC = () => {
     email: '',
     message: ''
   });
-  const [showToast, setShowToast] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notification, setNotification] = useState<{
+    type: 'success' | 'error';
+    message: string;
+  } | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -17,33 +21,53 @@ const ContactSection: React.FC = () => {
     });
   };
 
+  const showNotification = (type: 'success' | 'error', message: string) => {
+    setNotification({ type, message });
+    setTimeout(() => setNotification(null), 5000);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Create FormData for FormSubmit
-    const form = new FormData();
-    form.append('name', formData.name);
-    form.append('email', formData.email);
-    form.append('message', formData.message);
-    form.append('_captcha', 'false');
-    form.append('_template', 'table');
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      showNotification('error', 'Please fill in all fields');
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      showNotification('error', 'Please enter a valid email address');
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
-      await fetch('https://formsubmit.co/vinayaksahu1672006@gmail.com', {
+      // Use Supabase Edge Function for backend
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/contact-form`, {
         method: 'POST',
-        body: form
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify(formData),
       });
-      
-      // Show success toast
-      setShowToast(true);
-      
-      // Reset form
-      setFormData({ name: '', email: '', message: '' });
-      
-      // Hide toast after 5 seconds
-      setTimeout(() => setShowToast(false), 5000);
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        showNotification('success', result.message || 'Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        showNotification('error', result.error || 'Failed to send message. Please try again.');
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Contact form error:', error);
+      showNotification('error', 'Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -95,7 +119,8 @@ const ContactSection: React.FC = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 rounded-lg"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </motion.div>
                 
@@ -112,7 +137,8 @@ const ContactSection: React.FC = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 rounded-lg"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </motion.div>
               </div>
@@ -129,8 +155,9 @@ const ContactSection: React.FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
+                  disabled={isSubmitting}
                   rows={5}
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 resize-none rounded-lg"
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 resize-none rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </motion.div>
               
@@ -140,36 +167,58 @@ const ContactSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
                 viewport={{ once: true }}
-                whileHover={{ 
+                whileHover={!isSubmitting ? { 
                   scale: 1.05, 
                   boxShadow: "0 10px 25px rgba(34, 197, 94, 0.4)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full md:w-auto px-8 py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition-all duration-300 flex items-center justify-center space-x-2"
+                } : {}}
+                whileTap={!isSubmitting ? { scale: 0.95 } : {}}
+                disabled={isSubmitting}
+                className="w-full md:w-auto px-8 py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-500"
               >
-                <Send className="w-5 h-5" />
-                <span>Send Message</span>
+                {isSubmitting ? (
+                  <>
+                    <Loader className="w-5 h-5 animate-spin" />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    <span>Send Message</span>
+                  </>
+                )}
               </motion.button>
             </form>
           </div>
         </motion.div>
       </div>
 
-      {/* Success Toast */}
+      {/* Notification Toast */}
       <AnimatePresence>
-        {showToast && (
+        {notification && (
           <motion.div
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            className="fixed bottom-8 right-8 z-50"
+            className="fixed bottom-8 right-8 z-50 max-w-md"
           >
-            <div className="bg-green-500 text-black px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3">
-              <CheckCircle className="w-5 h-5" />
-              <span className="font-semibold">Message Sent! I'll reach out to you shortly.</span>
+            <div className={`${
+              notification.type === 'success' 
+                ? 'bg-green-500 text-black' 
+                : 'bg-red-500 text-white'
+            } px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3`}>
+              {notification.type === 'success' ? (
+                <CheckCircle className="w-5 h-5 flex-shrink-0" />
+              ) : (
+                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              )}
+              <span className="font-semibold flex-1">{notification.message}</span>
               <button
-                onClick={() => setShowToast(false)}
-                className="ml-2 hover:bg-green-600 rounded-full p-1 transition-colors"
+                onClick={() => setNotification(null)}
+                className={`${
+                  notification.type === 'success' 
+                    ? 'hover:bg-green-600' 
+                    : 'hover:bg-red-600'
+                } rounded-full p-1 transition-colors`}
               >
                 <X className="w-4 h-4" />
               </button>
