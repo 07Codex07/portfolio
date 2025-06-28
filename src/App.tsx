@@ -8,7 +8,6 @@ import CertificationsSection from './components/CertificationsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import MatrixBackground from './components/MatrixBackground';
-import SocialLinksFooter from './components/SocialLinksFooter';
 
 function App() {
   return (
@@ -26,7 +25,6 @@ function App() {
       </main>
       
       <Footer />
-      <SocialLinksFooter />
     </div>
   );
 }
