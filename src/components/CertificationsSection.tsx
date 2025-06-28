@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Award, ExternalLink, CheckCircle } from 'lucide-react';
+import { Award, ExternalLink, CheckCircle, Calendar, Hash } from 'lucide-react';
 
 interface CertificationCardProps {
   title: string;
   issuer: string;
   date: string;
+  credentialId: string;
   verificationUrl?: string;
   skills: string[];
   delay: number;
@@ -15,6 +16,7 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
   title, 
   issuer, 
   date, 
+  credentialId,
   verificationUrl, 
   skills, 
   delay 
@@ -55,18 +57,32 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
                 <Award className="w-6 h-6" />
               </motion.div>
               <div>
-                <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors duration-300 mb-1">
                   {title}
                 </h3>
-                <p className="text-gray-400 font-medium">{issuer}</p>
+                <p className="text-gray-400 font-medium text-lg">{issuer}</p>
               </div>
             </div>
-            <span className="text-sm text-green-400 font-mono bg-green-400/10 px-3 py-1 rounded-full">
-              {date}
-            </span>
+          </div>
+
+          {/* Date and Credential ID */}
+          <div className="mb-4 space-y-2">
+            <div className="flex items-center text-green-400">
+              <Calendar className="w-4 h-4 mr-2" />
+              <span className="text-sm font-mono bg-green-400/10 px-3 py-1 rounded-full">
+                {date}
+              </span>
+            </div>
+            <div className="flex items-center text-gray-300">
+              <Hash className="w-4 h-4 mr-2 text-green-400" />
+              <span className="text-sm font-mono bg-gray-800/50 px-3 py-1 rounded-full">
+                ID: {credentialId}
+              </span>
+            </div>
           </div>
           
-          <div className="flex flex-wrap gap-2 mb-4">
+          {/* Skills */}
+          <div className="flex flex-wrap gap-2 mb-6">
             {skills.map((skill, index) => (
               <motion.span
                 key={skill}
@@ -74,27 +90,29 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: delay + index * 0.1 }}
                 viewport={{ once: true }}
-                className="px-3 py-1 bg-gray-800/50 text-green-400 text-sm border border-green-500/30 rounded-full font-medium"
+                whileHover={{ 
+                  scale: 1.1, 
+                  y: -3,
+                  boxShadow: "0 5px 15px rgba(0, 255, 136, 0.4)"
+                }}
+                className="px-3 py-1 bg-gray-800/50 text-green-400 text-sm border border-green-500/30 rounded-full font-medium hover:border-green-400 hover:bg-green-400/10 transition-all duration-300 cursor-default"
               >
                 {skill}
               </motion.span>
             ))}
           </div>
 
-          {verificationUrl && (
-            <motion.a
-              href={verificationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-400 rounded-lg hover:bg-green-500/20 hover:border-green-400 transition-all duration-300 font-medium"
-            >
-              <CheckCircle className="w-4 h-4" />
-              <span>Verify</span>
-              <ExternalLink className="w-4 h-4" />
-            </motion.a>
-          )}
+          {/* Verify Button */}
+          <motion.button
+            onClick={() => verificationUrl && window.open(verificationUrl, '_blank')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center space-x-2 px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-400 rounded-lg hover:bg-green-500/20 hover:border-green-400 transition-all duration-300 font-medium group/btn"
+          >
+            <CheckCircle className="w-4 h-4" />
+            <span>Verify</span>
+            <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+          </motion.button>
         </div>
       </div>
     </motion.div>
@@ -104,32 +122,36 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
 const CertificationsSection: React.FC = () => {
   const certifications = [
     {
-      title: "Machine Learning Specialization",
-      issuer: "Stanford University (Coursera)",
-      date: "2023",
-      skills: ["Supervised Learning", "Unsupervised Learning", "Neural Networks", "Deep Learning"],
-      verificationUrl: "https://coursera.org/verify/specialization/example"
-    },
-    {
-      title: "Deep Learning Specialization",
-      issuer: "DeepLearning.AI",
-      date: "2023",
-      skills: ["CNN", "RNN", "LSTM", "Computer Vision", "NLP"],
-      verificationUrl: "https://coursera.org/verify/specialization/example"
-    },
-    {
-      title: "TensorFlow Developer Certificate",
-      issuer: "Google",
-      date: "2023",
-      skills: ["TensorFlow", "Keras", "Model Deployment", "Computer Vision"],
-      verificationUrl: "https://www.credential.net/example"
-    },
-    {
-      title: "Data Science Professional Certificate",
+      title: "Supervised Machine Learning: Classification",
       issuer: "IBM",
-      date: "2022",
-      skills: ["Python", "Data Analysis", "Machine Learning", "Data Visualization"],
-      verificationUrl: "https://coursera.org/verify/professional-cert/example"
+      date: "Mar 2025",
+      credentialId: "B2DJ3GRE67G5",
+      skills: ["Classification", "Supervised Learning", "Model Evaluation", "Feature Engineering"],
+      verificationUrl: "https://www.credly.com/badges/placeholder"
+    },
+    {
+      title: "Unsupervised Machine Learning",
+      issuer: "IBM",
+      date: "Mar 2025",
+      credentialId: "GOKSDKRYL9L1",
+      skills: ["Clustering", "Dimensionality Reduction", "Unsupervised Learning", "K-Means"],
+      verificationUrl: "https://www.credly.com/badges/placeholder"
+    },
+    {
+      title: "Supervised Machine Learning: Regression",
+      issuer: "ULSA",
+      date: "Mar 2025",
+      credentialId: "T8UBYGNR3Y4Z",
+      skills: ["Regression Analysis", "Linear Regression", "Polynomial Regression", "Model Validation"],
+      verificationUrl: "https://www.credly.com/badges/placeholder"
+    },
+    {
+      title: "Exploratory Data Analysis for Machine Learning",
+      issuer: "IBM",
+      date: "Jan 2025",
+      credentialId: "1BHHHGVRY5IP",
+      skills: ["Data Exploration", "Statistical Analysis", "Data Visualization", "Feature Selection"],
+      verificationUrl: "https://www.credly.com/badges/placeholder"
     }
   ];
 
@@ -151,23 +173,42 @@ const CertificationsSection: React.FC = () => {
           </div>
           <div className="w-24 h-1 bg-green-400 mx-auto rounded-full mb-4"></div>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Professional certifications and continuous learning achievements
+            Professional certifications and continuous learning achievements in AI/ML
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {certifications.map((cert, index) => (
             <CertificationCard
-              key={cert.title}
+              key={cert.credentialId}
               title={cert.title}
               issuer={cert.issuer}
               date={cert.date}
+              credentialId={cert.credentialId}
               verificationUrl={cert.verificationUrl}
               skills={cert.skills}
               delay={index * 0.2}
             />
           ))}
         </div>
+
+        {/* Additional Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center"
+        >
+          <div className="bg-gray-900/30 backdrop-blur-sm border border-green-500/20 rounded-2xl p-6">
+            <p className="text-gray-400 text-lg">
+              <span className="text-green-400 font-semibold">4 Professional Certifications</span> in Machine Learning and Data Science
+            </p>
+            <p className="text-gray-500 text-sm mt-2">
+              All certifications are verified and can be validated through the respective issuing organizations
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
