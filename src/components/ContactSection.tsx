@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Send, CheckCircle, X, AlertCircle, Loader } from 'lucide-react';
+import { submitContactForm, type ContactFormData } from '../utils/contactApi';
 
 const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
     message: ''
@@ -23,41 +24,48 @@ const ContactSection: React.FC = () => {
 
   const showNotification = (type: 'success' | 'error', message: string) => {
     setNotification({ type, message });
-    setTimeout(() => setNotification(null), 5000);
+    setTimeout(() => setNotification(null), 6000);
+  };
+
+  const validateForm = (): string | null => {
+    if (!formData.name.trim()) return 'Please enter your name';
+    if (!formData.email.trim()) return 'Please enter your email';
+    if (!formData.message.trim()) return 'Please enter your message';
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      return 'Please enter a valid email address';
+    }
+
+    // Length validation
+    if (formData.name.length > 100) {
+      return 'Name must be less than 100 characters';
+    }
+
+    if (formData.message.length > 2000) {
+      return 'Message must be less than 2000 characters';
+    }
+
+    return null;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      showNotification('error', 'Please fill in all fields');
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      showNotification('error', 'Please enter a valid email address');
+    // Client-side validation
+    const validationError = validateForm();
+    if (validationError) {
+      showNotification('error', validationError);
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      // Use Supabase Edge Function for backend
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/contact-form`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const result = await submitContactForm(formData);
 
-      const result = await response.json();
-
-      if (response.ok && result.success) {
+      if (result.success) {
         showNotification('success', result.message || 'Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
       } else {
@@ -120,6 +128,7 @@ const ContactSection: React.FC = () => {
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
+                    maxLength={100}
                     className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </motion.div>
@@ -157,8 +166,12 @@ const ContactSection: React.FC = () => {
                   required
                   disabled={isSubmitting}
                   rows={5}
+                  maxLength={2000}
                   className="w-full px-4 py-3 bg-gray-800/50 border border-green-500/30 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 resize-none rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 />
+                <div className="text-right text-sm text-gray-500 mt-1">
+                  {formData.message.length}/2000
+                </div>
               </motion.div>
               
               <motion.button
@@ -203,22 +216,22 @@ const ContactSection: React.FC = () => {
           >
             <div className={`${
               notification.type === 'success' 
-                ? 'bg-green-500 text-black' 
-                : 'bg-red-500 text-white'
-            } px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3`}>
+                ? 'bg-green-500 text-black border-green-400' 
+                : 'bg-red-500 text-white border-red-400'
+            } px-6 py-4 rounded-lg shadow-lg border-2 flex items-start space-x-3`}>
               {notification.type === 'success' ? (
-                <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
               ) : (
-                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
               )}
-              <span className="font-semibold flex-1">{notification.message}</span>
+              <span className="font-semibold flex-1 leading-relaxed">{notification.message}</span>
               <button
                 onClick={() => setNotification(null)}
                 className={`${
                   notification.type === 'success' 
                     ? 'hover:bg-green-600' 
                     : 'hover:bg-red-600'
-                } rounded-full p-1 transition-colors`}
+                } rounded-full p-1 transition-colors flex-shrink-0`}
               >
                 <X className="w-4 h-4" />
               </button>

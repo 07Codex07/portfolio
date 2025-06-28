@@ -7,7 +7,7 @@ A professional, cyberpunk-themed portfolio website showcasing AI/ML projects, sk
 - **Modern Design**: Black theme with neon green accents and cyberpunk aesthetics
 - **Responsive**: Fully responsive design that works on all devices
 - **Interactive**: Smooth animations and hover effects using Framer Motion
-- **Contact Form**: Working backend with email notifications
+- **Contact Form**: Working backend with email notifications via Supabase Edge Functions
 - **Professional**: Clean, minimal design focused on showcasing technical expertise
 - **Fast**: Built with React and Vite for optimal performance
 
@@ -36,6 +36,8 @@ src/
 │   ├── Navbar.tsx
 │   ├── ProjectsSection.tsx
 │   └── TechStackSection.tsx
+├── utils/
+│   └── contactApi.ts
 ├── App.tsx
 ├── main.tsx
 └── index.css
@@ -72,18 +74,41 @@ supabase/
 
 ## 📧 Contact Form Setup
 
-The contact form uses Supabase Edge Functions for the backend. To set it up:
+The contact form uses Supabase Edge Functions for the backend and Resend API for email delivery.
 
-1. **Create a Supabase project** at [supabase.com](https://supabase.com)
-2. **Get your project URL and anon key** from the project settings
-3. **Set up Resend API** at [resend.com](https://resend.com) for email delivery
-4. **Configure environment variables**:
-   ```bash
-   VITE_SUPABASE_URL=your_supabase_project_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-   RESEND_API_KEY=your_resend_api_key
-   ```
-5. **Deploy the Edge Function** to your Supabase project
+### Prerequisites
+
+1. **Supabase Project**: Create a project at [supabase.com](https://supabase.com)
+2. **Resend Account**: Sign up at [resend.com](https://resend.com) for email delivery
+
+### Environment Variables
+
+Create a `.env` file in your project root:
+
+```bash
+# Supabase Configuration
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# Email Service Configuration (for Edge Function)
+RESEND_API_KEY=your_resend_api_key
+```
+
+### Supabase Setup
+
+1. **Get your Supabase credentials**:
+   - Go to your Supabase project dashboard
+   - Navigate to Settings > API
+   - Copy your Project URL and anon/public key
+
+2. **Set up the Edge Function**:
+   - The Edge Function will be automatically deployed when you connect to Supabase
+   - Add your `RESEND_API_KEY` to your Supabase project's environment variables
+
+3. **Configure Resend API**:
+   - Sign up at [resend.com](https://resend.com)
+   - Get your API key from the dashboard
+   - Add it to your Supabase project's environment variables
 
 ### Contact Form Features
 
@@ -94,6 +119,51 @@ The contact form uses Supabase Edge Functions for the backend. To set it up:
 - ✅ **Success Feedback**: Confirmation messages for users
 - ✅ **Responsive Design**: Works perfectly on all devices
 - ✅ **Security**: CORS protection and input sanitization
+- ✅ **Rate Limiting**: Built-in Supabase protection
+
+### API Endpoint
+
+The contact form submits to:
+```
+POST {SUPABASE_URL}/functions/v1/contact-form
+```
+
+**Request Body:**
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "message": "Hello, I'd like to connect!"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Thank you for your message! I'll get back to you within 24 hours."
+}
+```
+
+### Frontend Usage Example
+
+```typescript
+import { submitContactForm } from './utils/contactApi';
+
+const handleSubmit = async (formData) => {
+  const result = await submitContactForm({
+    name: formData.name,
+    email: formData.email,
+    message: formData.message
+  });
+
+  if (result.success) {
+    console.log('Message sent successfully!');
+  } else {
+    console.error('Error:', result.error);
+  }
+};
+```
 
 ## 🔗 Social Links
 
@@ -102,6 +172,18 @@ The contact form uses Supabase Edge Functions for the backend. To set it up:
 - **LinkedIn**: [vinayak-sahu-8999a9259](https://www.linkedin.com/in/vinayak-sahu-8999a9259)
 - **Twitter**: [@Vinayak97386184](https://x.com/Vinayak97386184)
 - **Portfolio**: [Live Demo](https://portfolio-delta-two-15.vercel.app/)
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **Network Error**: Check your Supabase URL and API key
+2. **Email Not Sending**: Verify your Resend API key is set correctly
+3. **CORS Issues**: Ensure your domain is allowed in Supabase settings
+
+### Debug Mode
+
+Enable debug logging by checking the browser console and Supabase Edge Function logs.
 
 ## 📄 License
 
