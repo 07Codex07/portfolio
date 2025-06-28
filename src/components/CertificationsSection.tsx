@@ -123,7 +123,7 @@ const CertificationsSection: React.FC = () => {
     },
     {
       title: "Supervised Machine Learning: Regression",
-      issuer: "ULSA",
+      issuer: "IBM",
       date: "Mar 2025",
       credentialId: "T8UBYGNR3Y4Z",
       skills: ["Regression Analysis", "Linear Regression", "Polynomial Regression", "Model Validation"]
