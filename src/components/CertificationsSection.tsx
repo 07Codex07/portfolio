@@ -1,13 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Award, ExternalLink, CheckCircle, Calendar, Hash } from 'lucide-react';
+import { Award, CheckCircle, Calendar, Hash } from 'lucide-react';
 
 interface CertificationCardProps {
   title: string;
   issuer: string;
   date: string;
   credentialId: string;
-  verificationUrl?: string;
   skills: string[];
   delay: number;
 }
@@ -17,7 +16,6 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
   issuer, 
   date, 
   credentialId,
-  verificationUrl, 
   skills, 
   delay 
 }) => {
@@ -82,7 +80,7 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
           </div>
           
           {/* Skills */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2">
             {skills.map((skill, index) => (
               <motion.span
                 key={skill}
@@ -101,18 +99,6 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
               </motion.span>
             ))}
           </div>
-
-          {/* Verify Button */}
-          <motion.button
-            onClick={() => verificationUrl && window.open(verificationUrl, '_blank')}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center space-x-2 px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-400 rounded-lg hover:bg-green-500/20 hover:border-green-400 transition-all duration-300 font-medium group/btn"
-          >
-            <CheckCircle className="w-4 h-4" />
-            <span>Verify</span>
-            <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
-          </motion.button>
         </div>
       </div>
     </motion.div>
@@ -126,32 +112,28 @@ const CertificationsSection: React.FC = () => {
       issuer: "IBM",
       date: "Mar 2025",
       credentialId: "B2DJ3GRE67G5",
-      skills: ["Classification", "Supervised Learning", "Model Evaluation", "Feature Engineering"],
-      verificationUrl: "https://www.credly.com/badges/placeholder"
+      skills: ["Classification", "Supervised Learning", "Model Evaluation", "Feature Engineering"]
     },
     {
       title: "Unsupervised Machine Learning",
       issuer: "IBM",
       date: "Mar 2025",
       credentialId: "GOKSDKRYL9L1",
-      skills: ["Clustering", "Dimensionality Reduction", "Unsupervised Learning", "K-Means"],
-      verificationUrl: "https://www.credly.com/badges/placeholder"
+      skills: ["Clustering", "Dimensionality Reduction", "Unsupervised Learning", "K-Means"]
     },
     {
       title: "Supervised Machine Learning: Regression",
       issuer: "ULSA",
       date: "Mar 2025",
       credentialId: "T8UBYGNR3Y4Z",
-      skills: ["Regression Analysis", "Linear Regression", "Polynomial Regression", "Model Validation"],
-      verificationUrl: "https://www.credly.com/badges/placeholder"
+      skills: ["Regression Analysis", "Linear Regression", "Polynomial Regression", "Model Validation"]
     },
     {
       title: "Exploratory Data Analysis for Machine Learning",
       issuer: "IBM",
       date: "Jan 2025",
       credentialId: "1BHHHGVRY5IP",
-      skills: ["Data Exploration", "Statistical Analysis", "Data Visualization", "Feature Selection"],
-      verificationUrl: "https://www.credly.com/badges/placeholder"
+      skills: ["Data Exploration", "Statistical Analysis", "Data Visualization", "Feature Selection"]
     }
   ];
 
@@ -185,7 +167,6 @@ const CertificationsSection: React.FC = () => {
               issuer={cert.issuer}
               date={cert.date}
               credentialId={cert.credentialId}
-              verificationUrl={cert.verificationUrl}
               skills={cert.skills}
               delay={index * 0.2}
             />
