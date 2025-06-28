@@ -11,8 +11,12 @@ interface ContactFormData {
 }
 
 Deno.serve(async (req: Request) => {
+  console.log(`🚀 Contact form request received: ${req.method} ${req.url}`);
+  console.log('📋 Request headers:', Object.fromEntries(req.headers.entries()));
+
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
+    console.log('✅ Handling CORS preflight request');
     return new Response(null, {
       status: 200,
       headers: corsHeaders,
@@ -22,6 +26,7 @@ Deno.serve(async (req: Request) => {
   try {
     // Only allow POST requests
     if (req.method !== 'POST') {
+      console.log(`❌ Method not allowed: ${req.method}`);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -36,14 +41,25 @@ Deno.serve(async (req: Request) => {
 
     // Parse and validate request body
     let requestData: ContactFormData;
+    let rawBody: string;
+    
     try {
-      requestData = await req.json();
+      rawBody = await req.text();
+      console.log('📝 Raw request body:', rawBody);
+      
+      if (!rawBody || rawBody.trim() === '') {
+        throw new Error('Empty request body');
+      }
+      
+      requestData = JSON.parse(rawBody);
+      console.log('✅ Parsed request data:', requestData);
     } catch (parseError) {
-      console.error('JSON parsing error:', parseError);
+      console.error('❌ JSON parsing error:', parseError);
+      console.error('📝 Raw body that failed to parse:', rawBody);
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: 'Invalid JSON format in request body.' 
+          error: 'Invalid JSON format in request body. Please check your request format.' 
         }),
         { 
           status: 400, 
@@ -53,9 +69,15 @@ Deno.serve(async (req: Request) => {
     }
 
     const { name, email, message } = requestData;
+    console.log('🔍 Extracted fields:', { name: !!name, email: !!email, message: !!message });
 
     // Validate required fields
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
+      console.log('❌ Missing required fields:', { 
+        name: !name?.trim(), 
+        email: !email?.trim(), 
+        message: !message?.trim() 
+      });
       return new Response(
         JSON.stringify({ 
           success: false,
@@ -71,6 +93,7 @@ Deno.serve(async (req: Request) => {
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.trim())) {
+      console.log('❌ Invalid email format:', email);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -85,6 +108,7 @@ Deno.serve(async (req: Request) => {
 
     // Validate field lengths
     if (name.trim().length > 100) {
+      console.log('❌ Name too long:', name.trim().length);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -98,6 +122,7 @@ Deno.serve(async (req: Request) => {
     }
 
     if (message.trim().length > 2000) {
+      console.log('❌ Message too long:', message.trim().length);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -112,9 +137,12 @@ Deno.serve(async (req: Request) => {
 
     // Get Resend API key from environment
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
+    console.log('🔑 Resend API key status:', resendApiKey ? 'Found' : 'Missing');
+    console.log('🌍 All environment variables:', Object.keys(Deno.env.toObject()));
     
     if (!resendApiKey) {
-      console.error('RESEND_API_KEY not found in environment variables');
+      console.error('❌ RESEND_API_KEY not found in environment variables');
+      console.error('Available env vars:', Object.keys(Deno.env.toObject()));
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -199,37 +227,85 @@ Sent at: ${timestamp}
       </div>
     `;
 
-    // Send email via Resend API
-    console.log('Attempting to send email via Resend API...');
-    
-    const emailResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${resendApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'Portfolio Contact <noreply@resend.dev>',
-        to: ['vinayak1672006@gmail.com'],
-        subject: emailSubject,
-        text: textBody,
-        html: htmlBody,
-      }),
+    // Prepare email payload
+    const emailPayload = {
+      from: 'Portfolio Contact <noreply@resend.dev>',
+      to: ['vinayak1672006@gmail.com'],
+      subject: emailSubject,
+      text: textBody,
+      html: htmlBody,
+    };
+
+    console.log('📧 Preparing to send email with payload:', {
+      from: emailPayload.from,
+      to: emailPayload.to,
+      subject: emailPayload.subject,
+      textLength: textBody.length,
+      htmlLength: htmlBody.length
     });
 
-    const emailResult = await emailResponse.text();
+    // Send email via Resend API
+    console.log('🚀 Attempting to send email via Resend API...');
+    
+    let emailResponse: Response;
+    let emailResult: string;
+    
+    try {
+      emailResponse = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${resendApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailPayload),
+      });
+
+      emailResult = await emailResponse.text();
+      
+      console.log('📬 Resend API response:', {
+        status: emailResponse.status,
+        statusText: emailResponse.statusText,
+        headers: Object.fromEntries(emailResponse.headers.entries()),
+        body: emailResult
+      });
+
+    } catch (fetchError) {
+      console.error('❌ Fetch error when calling Resend API:', fetchError);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: 'Network error while sending email. Please try again later.' 
+        }),
+        { 
+          status: 500, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      );
+    }
     
     if (!emailResponse.ok) {
-      console.error('Resend API error:', {
+      console.error('❌ Resend API error:', {
         status: emailResponse.status,
         statusText: emailResponse.statusText,
         body: emailResult
       });
       
+      let errorMessage = 'Failed to send email. Please try again later.';
+      
+      // Parse Resend error response for more specific error messages
+      try {
+        const errorData = JSON.parse(emailResult);
+        if (errorData.message) {
+          errorMessage = `Email service error: ${errorData.message}`;
+        }
+      } catch (e) {
+        console.log('Could not parse Resend error response as JSON');
+      }
+      
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: 'Failed to send email. Please try again later or contact directly via email.' 
+          error: errorMessage
         }),
         { 
           status: 500, 
@@ -238,7 +314,8 @@ Sent at: ${timestamp}
       );
     }
 
-    console.log('Email sent successfully:', emailResult);
+    console.log('✅ Email sent successfully via Resend API');
+    console.log('📧 Resend response:', emailResult);
 
     // Success response
     return new Response(
@@ -253,7 +330,8 @@ Sent at: ${timestamp}
     );
 
   } catch (error) {
-    console.error('Unexpected error in contact form:', error);
+    console.error('💥 Unexpected error in contact form:', error);
+    console.error('Error stack:', error.stack);
     
     return new Response(
       JSON.stringify({ 

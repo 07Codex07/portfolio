@@ -120,6 +120,7 @@ RESEND_API_KEY=your_resend_api_key
 - ✅ **Responsive Design**: Works perfectly on all devices
 - ✅ **Security**: CORS protection and input sanitization
 - ✅ **Rate Limiting**: Built-in Supabase protection
+- ✅ **Debug Logging**: Comprehensive logging for troubleshooting
 
 ### API Endpoint
 
@@ -165,6 +166,45 @@ const handleSubmit = async (formData) => {
 };
 ```
 
+### Debugging
+
+The contact form includes comprehensive debug logging. To troubleshoot issues:
+
+1. **Check Browser Console**: Look for detailed logs from the frontend
+2. **Check Supabase Logs**: View Edge Function logs in your Supabase dashboard
+3. **Test Environment**: Use the debug functions in `contactApi.ts`
+
+```typescript
+import { debugEnvironment, testContactFormAPI } from './utils/contactApi';
+
+// Check environment variables
+debugEnvironment();
+
+// Test the API
+testContactFormAPI();
+```
+
+### Common Issues & Solutions
+
+1. **"An unexpected error occurred"**:
+   - Check if `RESEND_API_KEY` is set in Supabase environment variables
+   - Verify your Supabase URL and anon key are correct
+   - Check the Edge Function logs for detailed error messages
+
+2. **Network Error**:
+   - Ensure your Supabase project is active
+   - Check if the Edge Function is deployed
+   - Verify CORS settings
+
+3. **Email Not Sending**:
+   - Verify your Resend API key is valid
+   - Check if you've verified your domain in Resend (for production)
+   - Review Resend API logs
+
+4. **JSON Parsing Error**:
+   - Check request format in browser network tab
+   - Ensure Content-Type header is set correctly
+
 ## 🔗 Social Links
 
 - **Email**: vinayak1672006@gmail.com
@@ -175,15 +215,17 @@ const handleSubmit = async (formData) => {
 
 ## 🐛 Troubleshooting
 
-### Common Issues
-
-1. **Network Error**: Check your Supabase URL and API key
-2. **Email Not Sending**: Verify your Resend API key is set correctly
-3. **CORS Issues**: Ensure your domain is allowed in Supabase settings
-
 ### Debug Mode
 
-Enable debug logging by checking the browser console and Supabase Edge Function logs.
+Enable debug logging by opening browser console. The contact form will log:
+- ✅ Environment variable status
+- 📦 Request payload details
+- 📬 API response information
+- ❌ Detailed error messages
+
+### Edge Function Logs
+
+Check your Supabase dashboard > Edge Functions > contact-form > Logs for server-side debugging information.
 
 ## 📄 License
 
