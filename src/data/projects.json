@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Handwritten Math Solver",
+      "description": "CNN-powered system that recognizes handwritten mathematical equations and solves them in real-time using computer vision.",
+      "technologies": ["CNN", "OpenCV", "TensorFlow", "Python"],
+      "category": "Computer Vision",
+      "featured": true,
+      "status": "completed",
+      "year": "2024"
+    },
+    {
+      "id": 2,
+      "title": "Your Next Watch",
+      "description": "A Streamlit-based intelligent movie recommendation system. Uses NLP techniques, API integration, and cosine similarity to suggest movies based on mood and language.",
+      "technologies": ["Streamlit", "NLP", "API", "Cosine Similarity", "Recommender System"],
+      "githubUrl": "https://github.com/07Codex07/Your-Next-Watch",
+      "category": "Recommender System",
+      "featured": true,
+      "status": "completed",
+      "year": "2024"
+    },
+    {
+      "id": 3,
+      "title": "Fashion Product Matcher",
+      "description": "Advanced computer vision pipeline using YOLOv8 for detection, CLIP for embeddings, and FAISS for fast similarity search from video streams.",
+      "technologies": ["YOLOv8", "CLIP", "FAISS", "Computer Vision"],
+      "githubUrl": "https://github.com/07Codex07/Reel2Retail",
+      "category": "Computer Vision",
+      "featured": true,
+      "status": "completed",
+      "year": "2024"
+    },
+    {
+      "id": 4,
+      "title": "Book Recommender",
+      "description": "ML-based book recommendation engine using collaborative filtering, TF-IDF vectorization, and NLP techniques to suggest personalized books.",
+      "technologies": ["Collaborative Filtering", "TF-IDF", "NLP", "Pandas", "Recommender System"],
+      "githubUrl": "https://github.com/07Codex07/Book_Recommender",
+      "category": "Recommender System",
+      "featured": true,
+      "status": "completed",
+      "year": "2023"
+    }
+  ],
+  "stats": {
+    "totalProjects": 15,
+    "featuredProjects": 4,
+    "categories": ["Computer Vision", "NLP", "Recommender Systems", "Deep Learning", "Data Analysis"]
+  }
+}
