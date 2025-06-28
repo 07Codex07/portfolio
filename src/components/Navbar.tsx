@@ -105,7 +105,7 @@ const Navbar: React.FC = () => {
                 </motion.button>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </motion.nav>
