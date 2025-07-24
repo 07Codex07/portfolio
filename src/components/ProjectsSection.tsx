@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Eye, Film, BookOpen, Github, ExternalLink, Sparkles, Zap } from 'lucide-react';
+import { Brain, Eye, Film, Terminal, Github, ExternalLink, Sparkles, Zap } from 'lucide-react';
 
 interface ProjectCardProps {
   icon: React.ReactNode;
@@ -122,17 +122,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ icon, title, description, tec
 const ProjectsSection: React.FC = () => {
   const projects = [
     {
-      icon: <Brain className="w-10 h-10" />,
-      title: "Handwritten Math Solver",
-      description: "CNN-powered system that recognizes handwritten mathematical equations and solves them in real-time using computer vision.",
-      tech: ["CNN", "OpenCV", "TensorFlow", "Python"]
-    },
-    {
-      icon: <Film className="w-10 h-10" />,
-      title: "Your Next Watch",
-      description: "A Streamlit-based intelligent movie recommendation system. Uses NLP techniques, API integration, and cosine similarity to suggest movies based on mood and language.",
-      tech: ["Streamlit", "NLP", "API", "Cosine Similarity", "Recommender System"],
-      githubUrl: "https://github.com/07Codex07/Your-Next-Watch"
+      icon: <Terminal className="w-10 h-10" />,
+      title: "Smart Linux Copilot",
+      description: "Voice-activated AI assistant for Linux workflows. Uses speech recognition, LLM integration, and command execution to help users interact with their Linux system more naturally and efficiently.",
+      tech: ["Whisper", "OpenAI", "LLM", "Bash", "Python"],
+      githubUrl: "https://github.com/07Codex07/local_smart_linux_assistant"
     },
     {
       icon: <Eye className="w-10 h-10" />,
@@ -142,11 +136,17 @@ const ProjectsSection: React.FC = () => {
       githubUrl: "https://github.com/07Codex07/Reel2Retail"
     },
     {
-      icon: <BookOpen className="w-10 h-10" />,
-      title: "Book Recommender",
-      description: "ML-based book recommendation engine using collaborative filtering, TF-IDF vectorization, and NLP techniques to suggest personalized books.",
-      tech: ["Collaborative Filtering", "TF-IDF", "NLP", "Pandas", "Recommender System"],
-      githubUrl: "https://github.com/07Codex07/Book_Recommender"
+      icon: <Film className="w-10 h-10" />,
+      title: "Your Next Watch",
+      description: "A Streamlit-based intelligent movie recommendation system. Uses NLP techniques, API integration, and cosine similarity to suggest movies based on mood and language.",
+      tech: ["Streamlit", "NLP", "API", "Cosine Similarity", "Recommender System"],
+      githubUrl: "https://github.com/07Codex07/Your-Next-Watch"
+    },
+    {
+      icon: <Brain className="w-10 h-10" />,
+      title: "Handwritten Math Solver",
+      description: "CNN-powered system that recognizes handwritten mathematical equations and solves them in real-time using computer vision.",
+      tech: ["CNN", "OpenCV", "TensorFlow", "Python"]
     }
   ];
 
