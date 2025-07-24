@@ -125,7 +125,7 @@ const ProjectsSection: React.FC = () => {
       icon: <Terminal className="w-10 h-10" />,
       title: "Smart Linux Copilot",
       description: "Voice-activated AI assistant for Linux workflows. Uses speech recognition, LLM integration, and command execution to help users interact with their Linux system more naturally and efficiently.",
-      tech: ["Whisper", "OpenAI", "LLM", "Bash", "Python"],
+      tech: ["Whisper", "Phi2", "LLM", "Bash", "Python"],
       githubUrl: "https://github.com/07Codex07/local_smart_linux_assistant"
     },
     {
