@@ -146,7 +146,8 @@ const ProjectsSection: React.FC = () => {
       icon: <Brain className="w-10 h-10" />,
       title: "Handwritten Math Solver",
       description: "CNN-powered system that recognizes handwritten mathematical equations and solves them in real-time using computer vision.",
-      tech: ["CNN", "OpenCV", "TensorFlow", "Python"]
+      tech: ["CNN", "OpenCV", "TensorFlow", "Python"],
+      githubUrl: "https://github.com/07Codex07/EquationSolver.git"
     }
   ];
 
