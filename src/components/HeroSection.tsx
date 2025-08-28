@@ -25,12 +25,18 @@ const HeroSection: React.FC = () => {
   };
 
   const downloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/Vinayak_Sahu_Resume.pdf';
-    link.download = 'Vinayak_Sahu_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // First, open the resume in a new tab
+    window.open('/Vinayak_Sahu_Resume.pdf', '_blank');
+    
+    // Then, after a short delay, trigger the download
+    setTimeout(() => {
+      const link = document.createElement('a');
+      link.href = '/Vinayak_Sahu_Resume.pdf';
+      link.download = 'Vinayak_Sahu_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, 500); // 500ms delay to ensure the new tab opens first
   };
 
   return (
