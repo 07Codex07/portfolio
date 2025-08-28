@@ -136,11 +136,11 @@ const ProjectsSection: React.FC = () => {
       githubUrl: "https://github.com/07Codex07/Reel2Retail"
     },
     {
-      icon: <Film className="w-10 h-10" />,
-      title: "Your Next Watch",
-      description: "A Streamlit-based intelligent movie recommendation system. Uses NLP techniques, API integration, and cosine similarity to suggest movies based on mood and language.",
-      tech: ["Streamlit", "NLP", "API", "Cosine Similarity", "Recommender System"],
-      githubUrl: "https://github.com/07Codex07/Your-Next-Watch"
+      icon: <Brain className="w-10 h-10" />,
+      title: "PrepGraph",
+      description: "A chatbot built with LangGraph and Gradio that helps students study for exams by answering questions from their notes. Deployed via ngrok and used by peers during semester exams.",
+      tech: ["LangGraph", "Gradio", "Python", "RAG"],
+      githubUrl: "https://github.com/07Codex07/PrepGraph.git"
     },
     {
       icon: <Brain className="w-10 h-10" />,
